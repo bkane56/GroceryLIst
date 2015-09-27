@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bkane56.grocerylist.AddNewItemFragment">
+
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="45sp"
+        android:text="Will Go To An Add Item View"
+        android:elevation="25dp"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_below="@id/label"
+        android:layout_centerInParent="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:elevation="18dp"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/textColorPrimary"
+        android:gravity="center_horizontal"
+        android:text="Edit fragment_scan_new.xml to change the appearance" />
+
+</RelativeLayout>

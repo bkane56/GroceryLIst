@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Grocery List</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="nav_item_show_list">Show List</string>
+    <string name="nav_item_scan_new">Scan New Item</string>
+    <string name="nav_item_add_to_list">Add Item To List</string>
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_show_list</item>
+        <item>@string/nav_item_scan_new</item>
+        <item>@string/nav_item_add_to_list</item>
+    </string-array>
+
+    <string name="title_show_list">Show List</string>
+    <string name="title_scan_new">Scan New Item</string>
+    <string name="title_add_new">Add Item To List</string>
+
+</resources>
