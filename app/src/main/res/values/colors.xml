@@ -7,4 +7,5 @@
     <color name="windowBackground">#e8eaf6</color>
     <color name="navigationBarColor">#1a237e</color>
     <color name="colorAccent">#536dfe</color>
+    <color name="colorAccentLight">#8c9eff</color>
 </resources>
