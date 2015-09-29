@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 public class ScanNewFragment extends Fragment {
 
     public ScanNewFragment() {
-        // Required empty public constructor
     }
 
     @Override

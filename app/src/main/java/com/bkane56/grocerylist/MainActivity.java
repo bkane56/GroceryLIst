@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
@@ -24,8 +23,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.raise).setOnClickListener(this);
-        findViewById(R.id.lower).setOnClickListener(this);
+        findViewById(R.id.increase).setOnClickListener(this);
+        findViewById(R.id.decrease).setOnClickListener(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -103,15 +102,15 @@ public class MainActivity extends AppCompatActivity
 
         View image = findViewById(R.id.img);
         int elevation = Integer.parseInt(((TextView) findViewById(R.id.label)).getText().toString());
-        if (v.getId() == R.id.raise) {
+        if (v.getId() == R.id.increase) {
             elevation += 5;
         } else {
             elevation -= 5;
         }
-        if (elevation<0) {
+        if (elevation < 0) {
             elevation = 0;
-        } else if (elevation>100) {
-            elevation=100;
+        } else if (elevation > 150) {
+            elevation = 150;
         }
         image.setElevation(elevation);
 

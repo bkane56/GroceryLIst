@@ -39,8 +39,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:background="@color/colorAccent"
-                    android:id="@+id/lower"
+                    android:width="75dp"
+                    android:height="50dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/textColorPrimaryLight"
+                    android:background="@drawable/button"
+                    android:id="@+id/decrease"
                     android:elevation="50dp"/>
 
                 <TextView
@@ -49,16 +53,21 @@
                     android:text="0"
                     android:id="@+id/label"
                     android:textColor="@color/textColorPrimary"
-                    android:textSize="12sp"
+                    android:background="@color/colorAccentLight"
+                    android:textSize="20sp"
                     android:padding="10dp"
-                    android:elevation="50dp"/>
+                    android:elevation="30dp"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:width="75dp"
+                    android:height="50dp"
                     android:text="+"
-                    android:background="@color/colorAccent"
-                    android:id="@+id/raise"
+                    android:textColor="@color/textColorPrimaryLight"
+                    android:textSize="20sp"
+                    android:background="@drawable/button"
+                    android:id="@+id/increase"
                     android:elevation="50dp"/>
 
             </LinearLayout>
