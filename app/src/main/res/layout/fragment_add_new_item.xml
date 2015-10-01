@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bkane56.grocerylist.Fragments.AddNewItemFragment">
+    tools:context="com.bkane56.grocerylist.AddNewItemFragment">
 
 
     <TextView

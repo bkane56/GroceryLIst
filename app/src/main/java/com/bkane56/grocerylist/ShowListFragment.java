@@ -1,4 +1,4 @@
-package com.bkane56.grocerylist.Fragments;
+package com.bkane56.grocerylist;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import com.bkane56.grocerylist.R;
 
 
-public class ScanNewFragment extends Fragment {
+public class ShowListFragment extends Fragment {
 
-    public ScanNewFragment() {
+    public ShowListFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -24,10 +25,11 @@ public class ScanNewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View newScanView = inflater.inflate(R.layout.fragment_scan_new, container, false);
+        View showListView = inflater.inflate(R.layout.fragment_show_list, container, false);
+
 
         // Inflate the layout for this fragment
-        return newScanView;
+        return showListView;
     }
 
     @Override

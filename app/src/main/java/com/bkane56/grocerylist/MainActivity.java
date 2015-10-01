@@ -1,5 +1,8 @@
 package com.bkane56.grocerylist;
 
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,14 +10,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bkane56.grocerylist.Fragments.AddNewItemFragment;
-import com.bkane56.grocerylist.Fragments.ScanNewFragment;
-import com.bkane56.grocerylist.Fragments.ShowListFragment;
+import com.bkane56.grocerylist.activities.AddItemsToListActivity;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener, View.OnClickListener {
@@ -27,6 +31,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= 21) {
+            getWindow().setSharedElementExitTransition(TransitionInflater.from(this)
+                    .inflateTransition(R.transition.shared_element_transition));
+//            TransitionInflater inflater = TransitionInflater.from(this);
+//            Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+//            transition.setDuration(1500);
+//            getWindow().setExitTransition(transition);
+
+        }
+
         setContentView(R.layout.activity_main);
 
         image = findViewById(R.id.img);
@@ -45,6 +60,8 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
     }
+
+
 
 
     @Override
@@ -105,17 +122,42 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void addItems(View v){
+
+        ActivityOptionsCompat compat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, "shared_img");
+        startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
+    }
+
 
 
     @Override
     public void onClick(View v) {
 
+        switch (v.getId()){
 
-        if (v.getId() == R.id.increase) {
-            elevation += 5;
-        } else {
-            elevation -= 5;
-        }
+            case R.id.increase:
+                elevation +=5;
+                break;
+            case  R.id.decrease:
+                elevation -= 5;
+                break;
+//            case R.id.btnReset:
+//                elevation = 0;
+//                break;
+//            case R.id.btnGetOut:
+//                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
+////        startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
+//                Toast.makeText(getApplicationContext(),"test", Toast.LENGTH_SHORT).show();
+//                break;
+            default:
+                break;
+                        }
+//        if (v.getId() == R.id.increase) {
+//            elevation += 5;
+//        } else {
+//            elevation -= 5;
+//        }
         if (elevation < 0) {
             elevation = 0;
         } else if (elevation > 150) {

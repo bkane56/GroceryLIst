@@ -87,20 +87,36 @@
                 android:layout_gravity="center_horizontal|top"
                 android:contentDescription="Raising Square"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:onClick="addItems"
+                android:layout_centerHorizontal="true"
+                android:transitionName="shared_img"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RESET"
-                android:id="@+id/button"
+                android:id="@+id/btnReset"
                 android:background="@drawable/button_ripple"
                 android:clickable="true"
                 android:onClick= "resetHeight"
+                android:elevation="22dp"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_below="@+id/linearLayout"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="48dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Me Out of Here"
+                android:id="@+id/brnGetOut"
+                android:onClick="addItems"
+                android:textColor="?android:attr/colorAccent"
+                android:elevation="22dp"
+                android:background="@drawable/sq_button_ripple"
+                android:layout_marginBottom="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
     </LinearLayout>

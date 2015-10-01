@@ -17,5 +17,8 @@
     <string name="title_show_list">Show List</string>
     <string name="title_scan_new">Scan New Item</string>
     <string name="title_add_new">Add Item To List</string>
+    <string name="title_activity_add_items_to_list">AddItemsToList</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
