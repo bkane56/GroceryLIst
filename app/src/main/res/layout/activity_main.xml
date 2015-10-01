@@ -21,8 +21,8 @@
                 layout="@layout/toolbar" />
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/container_body"
+        <RelativeLayout
+            android:id="@+id/replacable_body"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_marginTop="30dp"
@@ -33,17 +33,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:width="75dp"
-                    android:height="50dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/textColorPrimaryLight"
-                    android:background="@drawable/button"
+                    android:width="90dp"
+                    android:height="60dp"
+                    android:textSize="35sp"
+                    android:layout_marginRight="25dp"
+                    android:textColor="@color/secondary_text"
+                    android:background="@drawable/button_ripple"
                     android:id="@+id/decrease"
                     android:elevation="50dp"/>
 
@@ -52,35 +56,52 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:id="@+id/label"
-                    android:textColor="@color/textColorPrimary"
-                    android:background="@color/colorAccentLight"
+                    android:textColor="@color/primary_text"
+                    android:background="@color/colorControlHighlight"
                     android:textSize="20sp"
                     android:padding="10dp"
-                    android:elevation="30dp"/>
+                    android:elevation="10dp"
+                    android:clickable="false"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="75dp"
-                    android:height="50dp"
+                    android:width="90dp"
+                    android:height="60dp"
                     android:text="+"
-                    android:textColor="@color/textColorPrimaryLight"
-                    android:textSize="20sp"
-                    android:background="@drawable/button"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="35sp"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/button_ripple"
                     android:id="@+id/increase"
                     android:elevation="50dp"/>
 
             </LinearLayout>
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="90dp"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
                 android:elevation="0dp"
                 android:background="@drawable/demo_sq"
                 android:id="@+id/img"
-                android:layout_gravity="center_horizontal|top" />
-        </FrameLayout>
+                android:layout_gravity="center_horizontal|top"
+                android:contentDescription="Raising Square"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESET"
+                android:id="@+id/button"
+                android:background="@drawable/button_ripple"
+                android:clickable="true"
+                android:onClick= "resetHeight"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp" />
+        </RelativeLayout>
 
     </LinearLayout>
 

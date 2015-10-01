@@ -12,16 +12,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bkane56.grocerylist.Fragments.AddNewItemFragment;
+import com.bkane56.grocerylist.Fragments.ScanNewFragment;
+import com.bkane56.grocerylist.Fragments.ShowListFragment;
+
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener, View.OnClickListener {
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+    private int elevation;
+    View image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        image = findViewById(R.id.img);
 
         findViewById(R.id.increase).setOnClickListener(this);
         findViewById(R.id.decrease).setOnClickListener(this);
@@ -89,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_body, fragment);
+            fragmentTransaction.replace(R.id.replacable_body, fragment);
             fragmentTransaction.commit();
 
             // set the toolbar title
@@ -97,11 +105,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+
     @Override
     public void onClick(View v) {
 
-        View image = findViewById(R.id.img);
-        int elevation = Integer.parseInt(((TextView) findViewById(R.id.label)).getText().toString());
+
         if (v.getId() == R.id.increase) {
             elevation += 5;
         } else {
@@ -116,4 +125,12 @@ public class MainActivity extends AppCompatActivity
 
         ((TextView) findViewById(R.id.label)).setText(Integer.toString(elevation));
     }
+    public void resetHeight(View v) {
+
+        elevation = 0;
+        image.setElevation(elevation);
+        ((TextView) findViewById(R.id.label)).setText(Integer.toString(elevation));
+
+    }
+
 }

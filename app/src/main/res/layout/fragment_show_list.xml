@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bkane56.grocerylist.ShowListFragment">
+    tools:context="com.bkane56.grocerylist.Fragments.ShowListFragment">
 
 
     <TextView
@@ -16,7 +16,7 @@
         android:gravity="center_horizontal"
         android:textSize="45sp"
         android:elevation="25dp"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/primary_text"
         android:text="Will Show Grocery List"
         android:textStyle="bold"/>
 
@@ -28,7 +28,7 @@
         android:textSize="12sp"
         android:elevation="18dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/primary_text"
         android:gravity="center_horizontal"
         android:text="Edit fragment_show_list.xml to change the appearance" />
 

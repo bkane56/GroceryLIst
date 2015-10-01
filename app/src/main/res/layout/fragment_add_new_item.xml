@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bkane56.grocerylist.AddNewItemFragment">
+    tools:context="com.bkane56.grocerylist.Fragments.AddNewItemFragment">
 
 
     <TextView
@@ -17,7 +17,7 @@
         android:textSize="45sp"
         android:text="Will Go To An Add Item View"
         android:elevation="25dp"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/primary_text"
         android:textStyle="bold"/>
 
     <TextView
@@ -28,7 +28,7 @@
         android:elevation="18dp"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/primary_text"
         android:gravity="center_horizontal"
         android:text="Edit fragment_scan_new.xml to change the appearance" />
 
