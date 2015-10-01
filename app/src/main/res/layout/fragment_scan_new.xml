@@ -16,7 +16,7 @@
         android:gravity="center_horizontal"
         android:textSize="45sp"
         android:text="Will Start Scaner"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/primary_text"
         android:elevation="25dp"
         android:textStyle="bold"/>
 
@@ -28,7 +28,7 @@
         android:textSize="12sp"
         android:layout_marginTop="10dp"
         android:elevation="18dp"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/primary_text"
         android:gravity="center_horizontal"
         android:text="Edit fragment_scan_new.xml to change the appearance" />
 

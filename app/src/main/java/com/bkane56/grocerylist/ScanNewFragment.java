@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bkane56.grocerylist.R;
+
 
 public class ScanNewFragment extends Fragment {
 
     public ScanNewFragment() {
-        // Required empty public constructor
     }
 
     @Override

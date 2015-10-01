@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bkane56.grocerylist.R;
+
 
 public class AddNewItemFragment extends Fragment {
 

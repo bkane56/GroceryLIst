@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true">
+    android:background="@drawable/row_ripple"
+    android:clickable="true"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -11,9 +13,16 @@
         android:paddingLeft="30dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="15dp"
+        android:textColor="@color/primary_text"
+        android:textSize="15sp"
         android:textStyle="bold"
-        android:background="@color/windowBackground"/>
+        android:background="@color/primary_light"/>
+    <TextView
+        android:id="@+id/divder"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/divider"
 
-</RelativeLayout>
+        />
+
+</LinearLayout>
