@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bkane56.grocerylist.activities.AddItemsToListActivity;
 import com.bkane56.grocerylist.activities.ScanItemActivity;
+import com.bkane56.grocerylist.activities.ShowList;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener, View.OnClickListener {
@@ -99,9 +100,11 @@ public class MainActivity extends AppCompatActivity
         String title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment = new ShowListFragment();
-                title = getString(R.string.title_show_list);
-                break;
+//                fragment = new ShowListFragment();
+//                title = getString(R.string.title_show_list);
+//                break;
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
+                    startActivity(new Intent(this, ShowList.class), compat.toBundle());
             case 1:
                 fragment = new ScanNewFragment();
                 title = getString(R.string.title_scan_new);

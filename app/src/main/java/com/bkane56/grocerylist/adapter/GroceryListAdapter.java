@@ -7,18 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bkane56.grocerylist.items.NavDrawerItem;
+import com.bkane56.grocerylist.items.GroceryListItem;
 import com.bkane56.grocerylist.R;
 
 import java.util.Collections;
 import java.util.List;
 
-public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
-    List<NavDrawerItem> data = Collections.emptyList();
+public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.MyViewHolder> {
+
+
+    List<GroceryListItem> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context context;
 
-    public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
+    public GroceryListAdapter(Context context, List<GroceryListItem> data) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.data = data;
@@ -31,15 +33,16 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.nav_drawer_row, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+        View view = inflater.inflate(R.layout.grocery_list_recycler_row, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        NavDrawerItem current = data.get(position);
-        holder.title.setText(current.getTitle());
+        GroceryListItem current = data.get(position);
+        holder.item.setText(current.getGroceryItem());
+        holder.qty.setText(current.getQuantity());
+
     }
 
     @Override
@@ -48,11 +51,13 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
+        TextView item;
+        TextView qty;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.itemName);
+            item = (TextView) itemView.findViewById(R.id.itemName);
+            qty = (TextView) itemView.findViewById(R.id.qty);
         }
     }
 }

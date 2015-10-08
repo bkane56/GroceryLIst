@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bkane56.grocerylist.adapter.NavigationDrawerAdapter;
+import com.bkane56.grocerylist.items.NavDrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,6 @@ public class FragmentDrawer extends Fragment {
 
     public static List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
-
 
         // preparing navigation drawer items
         for (int i = 0; i < titles.length; i++) {

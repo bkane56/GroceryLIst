@@ -1,4 +1,4 @@
-package com.bkane56.grocerylist;
+package com.bkane56.grocerylist.items;
 
 
 public class NavDrawerItem {

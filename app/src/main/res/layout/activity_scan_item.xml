@@ -23,7 +23,7 @@
         <!--</LinearLayout>-->
     <!--</LinearLayout>-->
 
-    <Button android:id="@+id/scan_button"
+    <Button android:id="@+id/scan_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SCAN"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textIsSelectable="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/scan_button" />
+        android:layout_below="@id/scan_item" />
     <TextView
         android:id="@+id/scan_content"
         android:textColor="@color/primary_dark"

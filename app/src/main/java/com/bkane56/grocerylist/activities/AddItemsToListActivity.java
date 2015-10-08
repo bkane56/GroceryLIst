@@ -1,5 +1,7 @@
 package com.bkane56.grocerylist.activities;
 
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +18,7 @@ import com.bkane56.grocerylist.R;
 
 import java.util.concurrent.TimeUnit;
 
-public class AddItemsToListActivity extends AppCompatActivity {
+public class AddItemsToListActivity extends AppCompatActivity implements View.OnClickListener{
 
     Toolbar mToolbar;
 
@@ -24,8 +26,8 @@ public class AddItemsToListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setSharedElementEnterTransition(TransitionInflater.from(this)
-                .inflateTransition(R.transition.shared_element_transition));
+        getWindow().setEnterTransition(TransitionInflater.from(this)
+                .inflateTransition(R.transition.transition_explode_fade));
 //        Slide slide = new Slide();
 //        slide.setDuration(1000);
 //        getWindow().setEnterTransition(slide);
@@ -58,6 +60,17 @@ public class AddItemsToListActivity extends AppCompatActivity {
         in.setFillAfter(true);
 
     }
+    @Override
+      public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.scan_button:
+                ActivityOptionsCompat compat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, "scan_item");
+                startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,4 +93,6 @@ public class AddItemsToListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
