@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bkane56.grocerylist" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +21,14 @@
         <activity
             android:name=".activities.AddItemsToListActivity"
             android:label="@string/title_activity_add_items_to_list" >
+        </activity>
+        <activity
+            android:name=".activities.ScanItemActivity"
+            android:label="@string/title_activity_scan_item" >
+        </activity>
+        <activity
+            android:name=".activities.ShowList"
+            android:label="@string/title_activity_show_list" >
         </activity>
     </application>
 

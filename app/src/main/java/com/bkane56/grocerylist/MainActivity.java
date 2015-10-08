@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bkane56.grocerylist.activities.AddItemsToListActivity;
+import com.bkane56.grocerylist.activities.ScanItemActivity;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener, View.OnClickListener {
@@ -35,10 +36,10 @@ public class MainActivity extends AppCompatActivity
         if(Build.VERSION.SDK_INT >= 21) {
             getWindow().setSharedElementExitTransition(TransitionInflater.from(this)
                     .inflateTransition(R.transition.shared_element_transition));
-//            TransitionInflater inflater = TransitionInflater.from(this);
-//            Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
-//            transition.setDuration(1500);
-//            getWindow().setExitTransition(transition);
+            TransitionInflater inflater = TransitionInflater.from(this);
+            Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+            transition.setDuration(1500);
+            getWindow().setReenterTransition(transition);
 
         }
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity
         drawerFragment.setUp(R.id.fragment_navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
+
     }
 
 
@@ -122,11 +125,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void addItems(View v){
+    public void runAddItems(View v){
 
         ActivityOptionsCompat compat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, "shared_img");
         startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
+    }
+
+    public void runScanItem(View v){
+        startActivity(new Intent(this, ScanItemActivity.class));
     }
 
 

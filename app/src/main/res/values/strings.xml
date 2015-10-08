@@ -20,5 +20,7 @@
     <string name="title_activity_add_items_to_list">AddItemsToList</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_scan_item">ScanItemActivity</string>
+    <string name="title_activity_show_list">ShowList</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.bkane56.grocerylist.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AddItemsToListActivity extends AppCompatActivity {
 
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,12 @@ public class AddItemsToListActivity extends AppCompatActivity {
 //        Slide slide = new Slide();
 //        slide.setDuration(1000);
 //        getWindow().setEnterTransition(slide);
+
+
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//
+//        setSupportActionBar(mToolbar);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setContentView(R.layout.activity_add_items_to_list);
         animateText();

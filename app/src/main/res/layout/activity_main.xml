@@ -87,7 +87,7 @@
                 android:layout_gravity="center_horizontal|top"
                 android:contentDescription="Raising Square"
                 android:layout_alignParentTop="true"
-                android:onClick="addItems"
+                android:onClick="runScanItem"
                 android:layout_centerHorizontal="true"
                 android:transitionName="shared_img"/>
 
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="Get Me Out of Here"
                 android:id="@+id/brnGetOut"
-                android:onClick="addItems"
+                android:onClick="runAddItems"
                 android:textColor="?android:attr/colorAccent"
                 android:elevation="22dp"
                 android:background="@drawable/sq_button_ripple"
