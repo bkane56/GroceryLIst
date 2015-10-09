@@ -28,95 +28,48 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:id="@+id/linearLayout"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"
-                    android:width="90dp"
-                    android:height="60dp"
-                    android:textSize="35sp"
-                    android:layout_marginRight="25dp"
-                    android:textColor="@color/secondary_text"
-                    android:background="@drawable/button_ripple"
-                    android:id="@+id/decrease"
-                    android:elevation="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/label"
-                    android:textColor="@color/primary_text"
-                    android:background="@color/colorControlHighlight"
-                    android:textSize="20sp"
-                    android:padding="10dp"
-                    android:elevation="10dp"
-                    android:clickable="false"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:height="60dp"
-                    android:text="+"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="35sp"
-                    android:layout_marginLeft="25dp"
-                    android:background="@drawable/button_ripple"
-                    android:id="@+id/increase"
-                    android:elevation="50dp"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:elevation="0dp"
-                android:background="@drawable/demo_sq"
-                android:id="@+id/img"
-                android:layout_gravity="center_horizontal|top"
-                android:contentDescription="Raising Square"
-                android:layout_alignParentTop="true"
-                android:onClick="runScanItem"
-                android:layout_centerHorizontal="true"
-                android:transitionName="shared_item"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RESET"
-                android:id="@+id/btnReset"
+                android:text="Show List"
+                android:width="90dp"
+                android:height="60dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/button_ripple"
+                android:id="@+id/show"
+                android:elevation="50dp"
+                android:layout_above="@+id/scan"
+                android:layout_alignStart="@+id/scan"
+                android:layout_marginBottom="73dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="90dp"
+                android:height="60dp"
+                android:text="Scan"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/button_ripple"
+                android:id="@+id/scan"
+                android:elevation="50dp"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@+id/add" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:id="@+id/add"
                 android:background="@drawable/button_ripple"
                 android:clickable="true"
-                android:onClick= "resetHeight"
                 android:elevation="22dp"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_below="@+id/linearLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="48dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get Me Out of Here"
-                android:id="@+id/brnGetOut"
-                android:onClick="runAddItems"
-                android:textColor="?android:attr/colorAccent"
-                android:elevation="22dp"
-                android:background="@drawable/sq_button_ripple"
-                android:layout_marginBottom="15dp"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="86dp" />
+
+
         </RelativeLayout>
 
     </LinearLayout>

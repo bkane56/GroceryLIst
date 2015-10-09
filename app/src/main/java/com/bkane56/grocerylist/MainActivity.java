@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        image = findViewById(R.id.img);
+        findViewById(R.id.add).setOnClickListener(this);
+        findViewById(R.id.scan).setOnClickListener(this);
+        findViewById(R.id.show).setOnClickListener(this);
 
-        findViewById(R.id.increase).setOnClickListener(this);
-        findViewById(R.id.decrease).setOnClickListener(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -102,23 +102,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void displayView(int position) {
+
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
         Fragment fragment = null;
         String title = getString(R.string.app_name);
         switch (position) {
             case 0:
-//                fragment = new ShowListFragment();
-//                title = getString(R.string.title_show_list);
-//                break;
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
-                    startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
+                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
             case 1:
-                fragment = new ScanNewFragment();
-                title = getString(R.string.title_scan_new);
-                break;
+                startActivity(new Intent(this, ScanItemActivity.class), compat.toBundle());
             case 2:
-                fragment = new AddNewItemFragment();
-                title = getString(R.string.title_add_new);
-                break;
+                startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
             default:
                 break;
         }
@@ -149,46 +143,22 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
-            case R.id.increase:
-                elevation +=5;
+            case R.id.show:
+                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
                 break;
-            case  R.id.decrease:
-                elevation -= 5;
+            case R.id.scan:
+                startActivity(new Intent(this, ScanItemActivity.class), compat.toBundle());
                 break;
-//            case R.id.btnReset:
-//                elevation = 0;
-//                break;
-//            case R.id.btnGetOut:
-//                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
-////        startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
-//                Toast.makeText(getApplicationContext(),"test", Toast.LENGTH_SHORT).show();
-//                break;
+            case R.id.add:
+                startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
+                break;
             default:
                 break;
-                        }
-//        if (v.getId() == R.id.increase) {
-//            elevation += 5;
-//        } else {
-//            elevation -= 5;
-//        }
-        if (elevation < 0) {
-            elevation = 0;
-        } else if (elevation > 150) {
-            elevation = 150;
         }
-        image.setElevation(elevation);
-
-        ((TextView) findViewById(R.id.label)).setText(Integer.toString(elevation));
-    }
-    public void resetHeight(View v) {
-
-        elevation = 0;
-        image.setElevation(elevation);
-        ((TextView) findViewById(R.id.label)).setText(Integer.toString(elevation));
-
     }
 
 }
