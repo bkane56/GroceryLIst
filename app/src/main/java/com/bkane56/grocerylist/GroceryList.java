@@ -74,37 +74,4 @@ public class GroceryList {
         return (ArrayList<GroceryListItem>) items;
     }
 }
-//
-//import java.util.List;
-//
-//public class GroceryList {
-//
-//    private static List<GroceryListItem> myList;
-//    private static GroceryList instance = null;
-//
-//    public static GroceryList getInstance (){
-//        if(instance == null){
-//            instance = new GroceryList();
-//        }
-//        return instance;
-//    }
-//
-//    private GroceryList(){
-//
-//    }
-//
-//    public void addItem(int qty, String name){
-//        GroceryListItem item = new GroceryListItem(qty, name);
-//        myList.add(item);
-//    }
-//
-//    public void deleteItemByName(String name){
-//        if(myList.contains(name))
-//            myList.remove(name);
-//    }
-//    public void saveList(){
-//        
-//    }
-//
-//
-//}
+

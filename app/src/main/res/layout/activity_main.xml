@@ -89,7 +89,7 @@
                 android:layout_alignParentTop="true"
                 android:onClick="runScanItem"
                 android:layout_centerHorizontal="true"
-                android:transitionName="shared_img"/>
+                android:transitionName="shared_item"/>
 
             <Button
                 android:layout_width="wrap_content"

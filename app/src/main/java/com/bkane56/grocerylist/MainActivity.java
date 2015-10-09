@@ -16,11 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bkane56.grocerylist.activities.AddItemsToListActivity;
 import com.bkane56.grocerylist.activities.ScanItemActivity;
-import com.bkane56.grocerylist.activities.ShowList;
+import com.bkane56.grocerylist.activities.ShowListActivity;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener, View.OnClickListener {
@@ -35,11 +34,18 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         if(Build.VERSION.SDK_INT >= 21) {
-            getWindow().setSharedElementExitTransition(TransitionInflater.from(this)
-                    .inflateTransition(R.transition.shared_element_transition));
+//            getWindow().setSharedElementExitTransition(TransitionInflater.from(this)
+//                    .inflateTransition(R.transition.shared_element_transition));
+//            TransitionInflater inflater = TransitionInflater.from(this);
+//            Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+//            transition.setDuration(1500);
+//            getWindow().setReenterTransition(transition);
+
             TransitionInflater inflater = TransitionInflater.from(this);
             Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
             transition.setDuration(1500);
+            getWindow().setReenterTransition(transition);
+            getWindow().setEnterTransition(transition);
             getWindow().setReenterTransition(transition);
 
         }
@@ -104,7 +110,7 @@ public class MainActivity extends AppCompatActivity
 //                title = getString(R.string.title_show_list);
 //                break;
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
-                    startActivity(new Intent(this, ShowList.class), compat.toBundle());
+                    startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
             case 1:
                 fragment = new ScanNewFragment();
                 title = getString(R.string.title_scan_new);
@@ -131,7 +137,7 @@ public class MainActivity extends AppCompatActivity
     public void runAddItems(View v){
 
         ActivityOptionsCompat compat =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, "shared_img");
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, "shared_item");
         startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
     }
 

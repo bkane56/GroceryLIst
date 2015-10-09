@@ -41,11 +41,11 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         Explode explode = new Explode();
-        explode.setDuration(1250);
+        explode.setDuration(1500);
         getWindow().setEnterTransition(explode);
         setContentView(R.layout.activity_scan_item);
 
-        Button scanBtn = (Button)findViewById(R.id.scan_button);
+        Button scanBtn = (Button)findViewById(R.id.scan_item);
         formatTxt = (TextView)findViewById(R.id.scan_format);
         contentTxt = (TextView)findViewById(R.id.scan_content);
 
@@ -62,7 +62,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.scan_button){
+        if(v.getId()==R.id.scan_item){
 
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();

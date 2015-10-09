@@ -29,7 +29,9 @@
         android:text="SCAN"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp" />
+        android:background="@drawable/button_ripple"
+        android:layout_marginTop="108dp"
+        android:transitionName="shared_item" />
 
     <TextView
         android:id="@+id/scan_format"

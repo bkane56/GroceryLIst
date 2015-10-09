@@ -27,7 +27,7 @@
             android:label="@string/title_activity_scan_item" >
         </activity>
         <activity
-            android:name=".activities.ShowList"
+            android:name=".activities.ShowListActivity"
             android:label="@string/title_activity_show_list" >
         </activity>
     </application>

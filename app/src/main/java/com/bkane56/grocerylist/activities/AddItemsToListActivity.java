@@ -63,12 +63,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     @Override
       public void onClick(View v) {
 
-        switch (v.getId()){
-            case R.id.scan_button:
-                ActivityOptionsCompat compat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, "scan_item");
-                startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
-        }
+
 
     }
 
