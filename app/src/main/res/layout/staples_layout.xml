@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/staples_list">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="200dp"
+        android:id="@+id/frameLayout2">
+
+        <TextView android:text="Your List of Staples"
+            android:id="@+id/staples_list_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="25dp"
+            android:textAlignment="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_staples_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="45dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.95">
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finised"
+        android:background="@drawable/button_ripple"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="31dp"
+        android:id="@+id/finised" />
+
+    <TextView
+        android:id="@+id/tap_to_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Just Tap Item to Add Item To List"
+        android:textSize="20dp"
+        android:textColor="?android:colorPrimary"
+        android:layout_above="@+id/finised"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="27dp" />
+
+</RelativeLayout>

@@ -7,14 +7,16 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.view.View;
 
 import com.bkane56.grocerylist.items.GroceryListItem;
 import com.google.gson.Gson;
 
-public class GroceryList {
+public class GroceryList implements View.OnClickListener{
 
     public static final String PREFS_NAME = "Grocery_List";
     public static final String GROCERY_ITEMS = "Items List";
+
 
     public GroceryList() {
         super();
@@ -72,6 +74,11 @@ public class GroceryList {
             return new ArrayList<GroceryListItem>();
 
         return (ArrayList<GroceryListItem>) items;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
 

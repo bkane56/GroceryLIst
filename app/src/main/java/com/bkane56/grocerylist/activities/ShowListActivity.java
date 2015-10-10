@@ -1,8 +1,6 @@
 package com.bkane56.grocerylist.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,20 +8,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Explode;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bkane56.grocerylist.GroceryList;
+import com.bkane56.grocerylist.Helpers.ViewGroupUtils;
 import com.bkane56.grocerylist.R;
+import com.bkane56.grocerylist.StaplesList;
 import com.bkane56.grocerylist.adapter.GroceryListAdapter;
-import com.bkane56.grocerylist.adapter.NavigationDrawerAdapter;
 import com.bkane56.grocerylist.items.GroceryListItem;
 
 import java.util.ArrayList;
@@ -31,9 +27,10 @@ import java.util.List;
 
 public class ShowListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
-    private GroceryListAdapter adapter;
+    private int qty = 1;
+    private GroceryListItem mItem;
+
     private View containerView;
 
     @Override
@@ -54,12 +51,19 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         getWindow().setReenterTransition(transition);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv_grocery_list);
-        adapter = new GroceryListAdapter(this, GroceryList.getGroceryList(this));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView groceryRecyclerView = (RecyclerView) findViewById(R.id.rv_grocery_list);
+        GroceryListAdapter groceryListAdapter = new GroceryListAdapter(this, GroceryList.getGroceryList(this));
+        groceryRecyclerView.setAdapter(groceryListAdapter);
+        groceryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        findViewById(R.id.add1).setOnClickListener(this);
+        findViewById(R.id.subtract1).setOnClickListener(this);
+        findViewById(R.id.add_new).setOnClickListener(this);
+        findViewById(R.id.scan_item).setOnClickListener(this);
+        findViewById(R.id.staples).setOnClickListener(this);
+//        findViewById(R.id.finised).setOnClickListener(this);
+
+        groceryRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
 
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
@@ -77,6 +81,8 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+
+
     }
     private List<GroceryListItem> retrieveGroceryList(){
 
@@ -90,21 +96,50 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
      public void onClick(View v) {
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
 
-//        switch (v.getId()){
-//            case R.id.scan_item:
-//                startActivity(new Intent(this, AddItemsToListActivity.class));
+        switch (v.getId()) {
+            case R.id.staples:
+
+//                ViewGroupUtils.replaceView(findViewById(R.id.show_list_layout), findViewById(R.id.staples_list));
+//                RecyclerView staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
+//                GroceryListAdapter staplesListAdapter = new GroceryListAdapter(this, StaplesList.getStaplesList(this));
+//                staplesRecyclerView.setAdapter(staplesListAdapter);
+//                staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//                findViewById(R.id.finised).setOnClickListener(this);
 //
-////                break;
 //
-//            case R.id.add_new:
+//                staplesRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//                    @Override
+//                    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+//                        return false;
+//                    }
 //
-//                break;
+//                    @Override
+//                    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
 //
-//            case R.id.staples:
+//                    }
 //
-//                break;
-//        }
+//                    @Override
+//                    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+//
+//                    }
+//                });
+                break;
+
+
+            case R.id.scan_item:
+                startActivity(new Intent(this, ScanItemActivity.class), compat.toBundle());
+                break;
+            case R.id.add_new:
+                startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
+                break;
+            case R.id.finised:
+                setContentView(R.layout.activity_show_list);
+                break;
+            default:
+                break;
+        }
     }
 
     public void startScan(View v){
