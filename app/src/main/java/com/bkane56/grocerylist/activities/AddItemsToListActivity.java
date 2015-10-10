@@ -52,9 +52,9 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
         setContentView(R.layout.activity_add_items_to_list);
         mEditText = (EditText) findViewById(R.id.et_add_item);
-        findViewById(R.id.add_new).setOnClickListener(this);
-        findViewById(R.id.scan_item).setOnClickListener(this);
-        findViewById(R.id.staples).setOnClickListener(this);
+        findViewById(R.id.add1).setOnClickListener(this);
+        findViewById(R.id.subtract1).setOnClickListener(this);
+
 
 
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {

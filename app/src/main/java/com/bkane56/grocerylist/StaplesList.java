@@ -37,7 +37,15 @@ public class StaplesList {
         editor.commit();
     }
 
+    public static ArrayList<GroceryListItem> clearGroceryList(Context context){
+
+        ArrayList<GroceryListItem> mList = new ArrayList<>();
+        saveStaplesList(context, mList);
+        return mList;
+    }
+
     public static void addItem(Context context, GroceryListItem product) {
+
         List<GroceryListItem> favorites = getStaplesList(context);
         if (favorites == null)
             favorites = new ArrayList<GroceryListItem>();
