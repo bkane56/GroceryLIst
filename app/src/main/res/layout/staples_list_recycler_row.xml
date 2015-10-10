@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/primary_light">
+
+        <TextView
+            android:id="@+id/staples_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/primary_text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@color/primary_light"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/divder"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/divider"
+
+        />
+
+</LinearLayout>

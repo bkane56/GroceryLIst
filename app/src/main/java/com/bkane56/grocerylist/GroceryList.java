@@ -39,6 +39,13 @@ public class GroceryList implements View.OnClickListener{
         editor.commit();
     }
 
+    public static ArrayList<GroceryListItem> clearGroceryList(Context context){
+
+        ArrayList<GroceryListItem> mList = new ArrayList<>();
+        saveGroceryList(context, mList);
+        return mList;
+    }
+
     public static void addItem(Context context, GroceryListItem product) {
         List<GroceryListItem> favorites = getGroceryList(context);
         if (favorites == null)

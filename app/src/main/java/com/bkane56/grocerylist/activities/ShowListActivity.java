@@ -24,7 +24,9 @@ import com.bkane56.grocerylist.Helpers.ViewGroupUtils;
 import com.bkane56.grocerylist.R;
 import com.bkane56.grocerylist.StaplesList;
 import com.bkane56.grocerylist.adapter.GroceryListAdapter;
+import com.bkane56.grocerylist.adapter.StaplesListAdapter;
 import com.bkane56.grocerylist.items.GroceryListItem;
+import com.bkane56.grocerylist.items.StaplesListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +55,6 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         getWindow().setReenterTransition(transition);
         getWindow().setEnterTransition(transition);
         getWindow().setReenterTransition(transition);
-
 
         final RecyclerView groceryRecyclerView = (RecyclerView) findViewById(R.id.rv_grocery_list);
         final GroceryListAdapter groceryListAdapter = new GroceryListAdapter(this, GroceryList.getGroceryList(this));
@@ -122,7 +123,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     @Override
      public void onClick(View v) {
         ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
-        final List<GroceryListItem> staplesData = StaplesList.getStaplesList(this);
+        final List<StaplesListItem> staplesData = StaplesList.getStaplesList(this);
 
         switch (v.getId()) {
             case R.id.staples:
@@ -130,7 +131,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
 //                ViewGroupUtils.replaceView(findViewById(R.id.show_list_layout), findViewById(R.id.staples_list));
                 setContentView(R.layout.staples_layout);
                 RecyclerView staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
-                GroceryListAdapter staplesListAdapter = new GroceryListAdapter(this, staplesData);
+                StaplesListAdapter staplesListAdapter = new StaplesListAdapter(this, staplesData);
                 staplesRecyclerView.setAdapter(staplesListAdapter);
                 staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                 findViewById(R.id.finised).setOnClickListener(this);
@@ -138,11 +139,12 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
                 ItemClickSupport.addTo(staplesRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        GroceryListItem product = staplesData.get(position);
-                        addItemToGroceryList(v, product);
-                        String mItem = product.getGroceryItem();
-                        Toast.makeText(getApplicationContext(), mItem,
-                                Toast.LENGTH_LONG).show();
+                        String stapleItem = staplesData.get(position).getStaplesItem();
+                        GroceryListItem groceryListItem =new GroceryListItem(1, stapleItem);
+                        addItemToGroceryList(v, groceryListItem);
+
+//                        Toast.makeText(getApplicationContext(), "Added " + stapleItem) +
+//                                        " to Grocery List", Toast.LENGTH_SHORT).show();
                     }
                 });
 

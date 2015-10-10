@@ -11,12 +11,20 @@ http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/
 
 to implement:
 
-            ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                @Override
-                public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                    // do it
-                }
-            });
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener
+                        new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                // do your work on click here!
+            }
+        });
+
+You also need to define "R.id.item_click_support" using ids.xml in all of you values folders
+
+        <?xml version="1.0" encoding="utf-8"?>
+        <resources>
+            <item name="item_click_support" type="id" />
+        </resources>
 
  */
 

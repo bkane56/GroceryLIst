@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.bkane56.grocerylist.items.GroceryListItem;
+import com.bkane56.grocerylist.items.StaplesListItem;
 import com.google.gson.Gson;
 
 public class StaplesList {
@@ -21,7 +21,7 @@ public class StaplesList {
     }
 
     // This four methods are used for maintaining itemList.
-    public static void saveStaplesList(Context context, List<GroceryListItem> itemList) {
+    public static void saveStaplesList(Context context, List<StaplesListItem> itemList) {
         SharedPreferences settings;
         Editor editor;
 
@@ -37,33 +37,33 @@ public class StaplesList {
         editor.commit();
     }
 
-    public static ArrayList<GroceryListItem> clearGroceryList(Context context){
+    public static ArrayList<StaplesListItem> clearStaplesList(Context context){
 
-        ArrayList<GroceryListItem> mList = new ArrayList<>();
+        ArrayList<StaplesListItem> mList = new ArrayList<>();
         saveStaplesList(context, mList);
         return mList;
     }
 
-    public static void addItem(Context context, GroceryListItem product) {
+    public static void addItem(Context context, StaplesListItem product) {
 
-        List<GroceryListItem> favorites = getStaplesList(context);
+        List<StaplesListItem> favorites = getStaplesList(context);
         if (favorites == null)
-            favorites = new ArrayList<GroceryListItem>();
+            favorites = new ArrayList<StaplesListItem>();
         favorites.add(product);
         saveStaplesList(context, favorites);
     }
 
-    public static void removeItem(Context context, GroceryListItem product) {
-        ArrayList<GroceryListItem> favorites = getStaplesList(context);
+    public static void removeItem(Context context, StaplesListItem product) {
+        ArrayList<StaplesListItem> favorites = getStaplesList(context);
         if (favorites != null) {
             favorites.remove(product);
             saveStaplesList(context, favorites);
         }
     }
 
-    public static ArrayList<GroceryListItem> getStaplesList(Context context) {
+    public static ArrayList<StaplesListItem> getStaplesList(Context context) {
         SharedPreferences settings;
-        List<GroceryListItem> items;
+        List<StaplesListItem> items;
 
         settings = context.getSharedPreferences(PREFS_NAME,
                 Context.MODE_PRIVATE);
@@ -71,14 +71,14 @@ public class StaplesList {
         if (settings.contains(STAPLE_ITEMS)) {
             String jsonFavorites = settings.getString(STAPLE_ITEMS, null);
             Gson gson = new Gson();
-            GroceryListItem[] myItems = gson.fromJson(jsonFavorites,
-                    GroceryListItem[].class);
+            StaplesListItem[] myItems = gson.fromJson(jsonFavorites,
+                    StaplesListItem[].class);
 
             items = Arrays.asList(myItems);
-            items = new ArrayList<GroceryListItem>(items);
+            items = new ArrayList<StaplesListItem>(items);
         } else
-            return new ArrayList<GroceryListItem>();
+            return new ArrayList<StaplesListItem>();
 
-        return (ArrayList<GroceryListItem>) items;
+        return (ArrayList<StaplesListItem>) items;
     }
 }

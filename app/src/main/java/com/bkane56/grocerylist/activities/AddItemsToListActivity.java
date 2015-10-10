@@ -22,6 +22,7 @@ import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.R;
 import com.bkane56.grocerylist.StaplesList;
 import com.bkane56.grocerylist.items.GroceryListItem;
+import com.bkane56.grocerylist.items.StaplesListItem;
 
 import java.util.concurrent.TimeUnit;
 
@@ -84,9 +85,12 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     }
     public void addToBothLists(View v){
 
+        GroceryListItem groceryListItem = getProduct();
+        String mItem = groceryListItem.getGroceryItem();
+        StaplesListItem staplesListItem = new StaplesListItem(mItem);
 
         GroceryList.addItem(this,getProduct());
-        StaplesList.addItem(this, getProduct());
+        StaplesList.addItem(this,staplesListItem );
         mEditText.setText("");
 
     }
