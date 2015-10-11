@@ -1,7 +1,9 @@
 package com.bkane56.grocerylist.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.R;
+import com.bkane56.grocerylist.items.GroceryListItem;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -29,7 +33,6 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
     TextView formatTxt;
     TextView contentTxt;
     private String url;
-    String scannedCode;
 
 
 
@@ -66,6 +69,13 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
 
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
+        }
+        if(v.getId() == R.id.finised_scan){
+            ActivityOptionsCompat compat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
+
+            startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
+
         }
     }
 
@@ -110,6 +120,9 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
                     Element product = doc.select("itemname").first();
                     //        get the vale of itemname
                     item = product.text();
+                    addItem(item);
+
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -118,9 +131,9 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
         }
         @Override
         protected void onPostExecute(String result) {
-
             TextView txt = (TextView) findViewById(R.id.scan_content);
-            txt.setText(result);
+            txt.setText(result + "added to list.");
+
         }
     }
 
@@ -130,6 +143,11 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
 
     private void setUrl (String code) {
         url = "http://api.upcdatabase.org/xml/66f737fd6acd8c0ea5adb6caf891cec4/" + code;
+
+    }
+    private void addItem(String groceryItem){
+        GroceryListItem mItem = new GroceryListItem(1, groceryItem);
+        GroceryList.addItem(this, mItem);
 
     }
 

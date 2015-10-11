@@ -1,6 +1,5 @@
 package com.bkane56.grocerylist.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,13 +13,10 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.Helpers.ItemClickSupport;
-import com.bkane56.grocerylist.Helpers.ViewGroupUtils;
 import com.bkane56.grocerylist.R;
 import com.bkane56.grocerylist.StaplesList;
 import com.bkane56.grocerylist.adapter.GroceryListAdapter;
@@ -36,6 +32,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     private ActionBarDrawerToggle mDrawerToggle;
     private int qty = 1;
     private GroceryListItem mItem;
+    final List<GroceryListItem> groceryData = GroceryList.getGroceryList(getApplicationContext());
 
     private View containerView;
 
@@ -57,7 +54,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         getWindow().setReenterTransition(transition);
 
         final RecyclerView groceryRecyclerView = (RecyclerView) findViewById(R.id.rv_grocery_list);
-        final GroceryListAdapter groceryListAdapter = new GroceryListAdapter(this, GroceryList.getGroceryList(this));
+        final GroceryListAdapter groceryListAdapter = new GroceryListAdapter(this, groceryData);
         groceryRecyclerView.setAdapter(groceryListAdapter);
         groceryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -67,45 +64,68 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.scan_item).setOnClickListener(this);
         findViewById(R.id.staples).setOnClickListener(this);
 //        findViewById(R.id.finised).setOnClickListener(this);
-
+//
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                //Remove swiped item from list and notify the RecyclerView
-                groceryListAdapter.delete(viewHolder.getAdapterPosition());
-            }
-        };
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                        //Remove swiped item from list and notify the RecyclerView
+                        groceryListAdapter.delete(viewHolder.getAdapterPosition());
+                        groceryListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                    }
+                };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
 
-        groceryRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-
+        ItemClickSupport.addTo(groceryRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
-            }
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                GroceryListItem groceryItem = groceryData.get(position);
+                int qty = Integer.parseInt(groceryItem.getQuantity());
+                groceryItem.setQuantity(++qty);
+                groceryListAdapter.notifyItemChanged(position);
 
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
+//                        Toast.makeText(getApplicationContext(), "Added " + stapleItem) +
+//                                        " to Grocery List", Toast.LENGTH_SHORT).show();
             }
         });
-
-
+//        SwipeDismissRecyclerViewTouchListener listener = new SwipeDismissRecyclerViewTouchListener.Builder(
+//                groceryRecyclerView,
+//                new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
+//                    @Override
+//                    public boolean canDismiss(int position) {
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public void onDismiss(View view) {
+//                        int id = groceryRecyclerView.getChildPosition(view);
+//                        groceryListAdapter.groceryData.remove(id);
+//                        adapter.notifyDataSetChanged();
+//
+//                        Toast.makeText(getBaseContext(), String.format("Delete item %d",id),Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//                .setIsVertical(false)
+//                .setItemTouchCallback(
+//                        new SwipeDismissRecyclerViewTouchListener.OnItemTouchCallBack() {
+//                            @Override
+//                            public void onTouch(int index) {
+//                                showDialog(String.format("Click item %d", index));
+//                            }
+//                        })
+//                .create();
+//
+//        recyclerView.setOnTouchListener(listener);
 
     }
+
     private List<GroceryListItem> retrieveGroceryList(View view){
 
         List<GroceryListItem> myList = GroceryList.getGroceryList(this);
