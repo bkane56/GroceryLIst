@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.R;
+import com.bkane56.grocerylist.StaplesList;
 import com.bkane56.grocerylist.items.GroceryListItem;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -33,8 +34,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
     TextView formatTxt;
     TextView contentTxt;
     private String url;
-
-
+    private GroceryList mGroceryList;
 
     public ScanItemActivity() {
     }
@@ -44,21 +44,22 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         Explode explode = new Explode();
-        explode.setDuration(1500);
+        explode.setDuration(1000);
         getWindow().setEnterTransition(explode);
         setContentView(R.layout.activity_scan_item);
 
         Button scanBtn = (Button)findViewById(R.id.scan_item);
+        Button finBtn = (Button) findViewById(R.id.finised_scan);
         formatTxt = (TextView)findViewById(R.id.scan_format);
         contentTxt = (TextView)findViewById(R.id.scan_content);
+        mGroceryList = new GroceryList(this);
 
         scanBtn.setOnClickListener(this);
+        finBtn.setOnClickListener(this);
 
-
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-//
-//        setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
 
@@ -132,7 +133,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
         @Override
         protected void onPostExecute(String result) {
             TextView txt = (TextView) findViewById(R.id.scan_content);
-            txt.setText(result + "added to list.");
+            txt.setText(result + " added to list.");
 
         }
     }
@@ -147,7 +148,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
     }
     private void addItem(String groceryItem){
         GroceryListItem mItem = new GroceryListItem(1, groceryItem);
-        GroceryList.addItem(this, mItem);
+        mGroceryList.addItem(mItem);
 
     }
 
@@ -168,6 +169,15 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.clear_groceries){
+            mGroceryList.clearGroceryList();
+            Toast.makeText(getApplicationContext(),"Grocery List Cleared",
+                    Toast.LENGTH_SHORT).show();
+
+        }else {
+            StaplesList.clearStaplesList(this);
+            Toast.makeText(getApplicationContext(),"Staples List Cleared",
+                    Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

@@ -64,6 +64,8 @@
                 android:background="@drawable/button_ripple"
                 android:clickable="true"
                 android:elevation="22dp"
+                android:width="90dp"
+                android:height="60dp"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"

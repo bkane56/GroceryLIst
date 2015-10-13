@@ -6,7 +6,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,41 +20,37 @@ import android.widget.TextView;
 import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.R;
 import com.bkane56.grocerylist.StaplesList;
+import com.bkane56.grocerylist.adapter.GroceryListAdapter;
 import com.bkane56.grocerylist.items.GroceryListItem;
 import com.bkane56.grocerylist.items.StaplesListItem;
 
-import java.util.concurrent.TimeUnit;
 
 public class AddItemsToListActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Toolbar mToolbar;
-    EditText mEditText;
-    int qty = 1;
-    Context context;
-
+    private EditText mEditText;
+    private int qty = 1;
+    private Context context;
+    private GroceryList myGrocreyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = context;
+        myGrocreyList = new GroceryList(this);
 
         getWindow().setEnterTransition(TransitionInflater.from(this)
                 .inflateTransition(R.transition.transition_explode_fade));
-//        Slide slide = new Slide();
-//        slide.setDuration(1000);
-//        getWindow().setEnterTransition(slide);
-
-
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //
-//        setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setContentView(R.layout.activity_add_items_to_list);
         mEditText = (EditText) findViewById(R.id.et_add_item);
         findViewById(R.id.add1).setOnClickListener(this);
         findViewById(R.id.subtract1).setOnClickListener(this);
+        findViewById(R.id.btn_add_finish).setOnClickListener(this);
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -78,19 +73,21 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
     }
 
-    public void addToList(View v){
+    public void addToList(View v) {
 
-        GroceryList.addItem(this, getProduct());
+        myGrocreyList.addItem(getProduct());
         mEditText.setText("");
     }
+
+
     public void addToBothLists(View v){
 
         GroceryListItem groceryListItem = getProduct();
         String mItem = groceryListItem.getGroceryItem();
         StaplesListItem staplesListItem = new StaplesListItem(mItem);
 
-        GroceryList.addItem(this,getProduct());
-        StaplesList.addItem(this,staplesListItem );
+        myGrocreyList.addItem(getProduct());
+        StaplesList.addItem(this, staplesListItem);
         mEditText.setText("");
 
     }
@@ -126,6 +123,11 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
             case R.id.subtract1:
                 qty--;
                 break;
+            case R.id.btn_add_finish:
+                ActivityOptionsCompat compat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
+                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
+                break;
             default:
                 break;
         }
@@ -135,7 +137,6 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
         }
         ((TextView) findViewById(R.id.amount)).setText(Integer.toString(qty));
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,6 +159,5 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

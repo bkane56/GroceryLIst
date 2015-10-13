@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-    private int elevation;
-    View image;
-
+    private GroceryList myGroceryList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
             TransitionInflater inflater = TransitionInflater.from(this);
             Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
-            transition.setDuration(1500);
+            transition.setDuration(1000);
             getWindow().setReenterTransition(transition);
             getWindow().setEnterTransition(transition);
             getWindow().setReenterTransition(transition);
@@ -57,9 +55,9 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.scan).setOnClickListener(this);
         findViewById(R.id.show).setOnClickListener(this);
 
+        myGroceryList = new GroceryList(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -157,7 +155,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.clear_groceries){
-            GroceryList.clearGroceryList(this);
+            myGroceryList.clearGroceryList();
             Toast.makeText(getApplicationContext(),"Grocery List Cleared",
                     Toast.LENGTH_SHORT).show();
 
@@ -166,7 +164,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(),"Staples List Cleared",
                     Toast.LENGTH_SHORT).show();
         }
-
 
         return super.onOptionsItemSelected(item);
     }

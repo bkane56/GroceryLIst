@@ -16,6 +16,7 @@ public class GroceryListItem {
     }
 
     public String getQuantity() {
+
         return String.valueOf(quantity);
     }
 

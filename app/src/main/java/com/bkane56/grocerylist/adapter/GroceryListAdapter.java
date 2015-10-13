@@ -41,7 +41,11 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         GroceryListItem current = data.get(position);
         holder.item.setText(current.getGroceryItem());
-        holder.qty.setText(current.getQuantity());
+        if(current.getQuantity().equals("1")){
+            holder.qty.setText(" ");
+        }else{
+            holder.qty.setText(current.getQuantity());
+        }
 
     }
 
