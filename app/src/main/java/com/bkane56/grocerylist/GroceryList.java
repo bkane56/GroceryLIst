@@ -19,6 +19,7 @@ public class GroceryList implements View.OnClickListener{
     private Context context;
     private GroceryList instance = null;
 
+
     public GroceryList(Context context){
         super();
         this.context = context;
@@ -70,6 +71,17 @@ public class GroceryList implements View.OnClickListener{
             favorites.remove(product);
             saveGroceryList(favorites);
         }
+    }
+
+    public int getSize (){
+        ArrayList<GroceryListItem> favorites = getGroceryList();
+        return favorites.size();
+    }
+
+    public void updateItem(int position, GroceryListItem item){
+        ArrayList<GroceryListItem> favorites = getGroceryList();
+        favorites.set(position, item);
+        saveGroceryList(favorites);
     }
 
     public ArrayList<GroceryListItem> getGroceryList() {

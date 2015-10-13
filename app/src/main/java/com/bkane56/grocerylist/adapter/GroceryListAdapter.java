@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.items.GroceryListItem;
 import com.bkane56.grocerylist.R;
 
@@ -19,10 +20,12 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     List<GroceryListItem> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context context;
+    private GroceryList mGroceryList;
 
     public GroceryListAdapter(Context context, List<GroceryListItem> data) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+        mGroceryList= new GroceryList(context);
         this.data = data;
     }
 
@@ -53,6 +56,11 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     public int getItemCount() {
         return data.size();
     }
+
+    public void updateItem(int position, GroceryListItem item){
+        mGroceryList.updateItem(position, item);
+    }
+
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item;

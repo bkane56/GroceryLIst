@@ -31,16 +31,17 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     private int qty = 1;
     private Context context;
     private GroceryList myGrocreyList;
+    private GroceryListAdapter mGroceryListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = context;
         myGrocreyList = new GroceryList(this);
+        mGroceryListAdapter = ShowListActivity.getGroceryListAdapter();
 
         getWindow().setEnterTransition(TransitionInflater.from(this)
                 .inflateTransition(R.transition.transition_explode_fade));
-//
 
         setContentView(R.layout.activity_add_items_to_list);
         mEditText = (EditText) findViewById(R.id.et_add_item);
@@ -51,26 +52,6 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-        mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int keyCode,
-                                          KeyEvent event) {
-                if ( (event.getAction() == KeyEvent.ACTION_DOWN  ) &&
-                        (keyCode           == KeyEvent.KEYCODE_ENTER)   )
-                {
-                    // hide virtual keyboard
-                    InputMethodManager imm =
-                            (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
-                    return true;
-                }
-                return false;
-            }
-        });
-
     }
 
     public void addToList(View v) {
@@ -88,7 +69,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
         myGrocreyList.addItem(getProduct());
         StaplesList.addItem(this, staplesListItem);
-        mEditText.setText("");
+        mEditText.setText("");;
 
     }
     private GroceryListItem getProduct (){
@@ -96,9 +77,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
     }
 
-
     private void animateText(){
-
 
         Animation in = new AlphaAnimation(0.0f, 1.0f);
         in.setDuration(1250);
@@ -107,7 +86,6 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-
 
         in.setFillAfter(true);
 
