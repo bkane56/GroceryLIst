@@ -17,10 +17,11 @@
     <string name="title_show_list">Show List</string>
     <string name="title_scan_new">Scan New Item</string>
     <string name="title_add_new">Add Item To List</string>
-    <string name="title_activity_add_items_to_list">AddItemsToList</string>
+    <string name="title_activity_add_items_to_list">Add Items To List</string>
 
-    <string name="title_activity_scan_item">ScanItemActivity</string>
-    <string name="title_activity_show_list">ShowList</string>
+    <string name="title_activity_scan_item">Scan Item</string>
+    <string name="title_activity_show_list">Show List</string>
     <string name="grocery_list">My Grocery List</string>
+    <string name="title_activity_staples">Staples</string>
 
 </resources>

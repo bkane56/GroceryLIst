@@ -12,11 +12,6 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.AddItemsToListActivity"
@@ -29,6 +24,16 @@
         <activity
             android:name=".activities.ShowListActivity"
             android:label="@string/title_activity_show_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.StaplesActivity"
+            android:label="@string/title_activity_staples"
+            android:theme="@style/MyMaterialTheme" >
         </activity>
     </application>
 

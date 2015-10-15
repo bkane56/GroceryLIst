@@ -16,5 +16,7 @@
         <!--<item name="colorTextLight">@color/textColorPrimaryLight</item>-->
         <!--<item name="colorText">@color/textColorPrimaryt</item>-->
     </style>
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

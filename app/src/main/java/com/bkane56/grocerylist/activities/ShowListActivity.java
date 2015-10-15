@@ -58,6 +58,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         getWindow().setReenterTransition(transition);
         getWindow().setEnterTransition(transition);
         getWindow().setReenterTransition(transition);
+
         myGroceryList = new GroceryList(this);
 
         groceryData = myGroceryList.getGroceryList();
@@ -177,25 +178,26 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.staples:
 
-//                ViewGroupUtils.replaceView(findViewById(R.id.show_list_layout), findViewById(R.id.staples_list));
-                setContentView(R.layout.staples_layout);
-                RecyclerView staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
-                findViewById(R.id.add_all).setOnClickListener(this);
-
-                staplesListAdapter = new StaplesListAdapter(this, staplesData);
-                staplesRecyclerView.setAdapter(staplesListAdapter);
-                staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-                findViewById(R.id.finised).setOnClickListener(this);
-
-                ItemClickSupport.addTo(staplesRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        String stapleItem = staplesData.get(position).getStaplesItem();
-                        GroceryListItem groceryListItem =new GroceryListItem(1, stapleItem);
-                        myGroceryList.addItem(groceryListItem);
-                        groceryListAdapter.notifyItemChanged(position);
-                    }
-                });
+////                ViewGroupUtils.replaceView(findViewById(R.id.show_list_layout), findViewById(R.id.staples_list));
+//                setContentView(R.layout.staples_layout);
+//                RecyclerView staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
+//                findViewById(R.id.add_all).setOnClickListener(this);
+//
+//                staplesListAdapter = new StaplesListAdapter(this, staplesData);
+//                staplesRecyclerView.setAdapter(staplesListAdapter);
+//                staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//                findViewById(R.id.finised).setOnClickListener(this);
+//
+//                ItemClickSupport.addTo(staplesRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+//                        String stapleItem = staplesData.get(position).getStaplesItem();
+//                        GroceryListItem groceryListItem =new GroceryListItem(1, stapleItem);
+//                        myGroceryList.addItem(groceryListItem);
+//                        groceryListAdapter.notifyItemChanged(position);
+//                    }
+//                });
+                startActivity(new Intent(this, StaplesActivity.class), compat.toBundle());
                 break;
             case R.id.scan_item:
                 startActivity(new Intent(this, ScanItemActivity.class), compat.toBundle());
@@ -204,7 +206,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, AddItemsToListActivity.class), compat.toBundle());
                 break;
             case R.id.finised:
-                setContentView(R.layout.activity_show_list);
+                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
                 break;
             case R.id.add_all:
                 addAllStaples();
@@ -249,6 +251,19 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
                         dialog.dismiss();
                     }
 
+                })
+                .setNeutralButton("Subtract 1", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GroceryListItem groceryItem = groceryData.get(position);
+                        int qty = Integer.parseInt(groceryItem.getQuantity());
+                        if (qty > 1) {
+                            groceryItem.setQuantity(--qty);
+                            myGroceryList.updateItem(position, new GroceryListItem(qty, groceryItem.getGroceryItem()));
+                            groceryListAdapter.notifyItemChanged(position);
+                        }
+                        dialog.dismiss();
+                    }
                 })
 
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
