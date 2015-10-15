@@ -180,23 +180,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
 
 ////                ViewGroupUtils.replaceView(findViewById(R.id.show_list_layout), findViewById(R.id.staples_list));
 //                setContentView(R.layout.staples_layout);
-//                RecyclerView staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
-//                findViewById(R.id.add_all).setOnClickListener(this);
 //
-//                staplesListAdapter = new StaplesListAdapter(this, staplesData);
-//                staplesRecyclerView.setAdapter(staplesListAdapter);
-//                staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//                findViewById(R.id.finised).setOnClickListener(this);
-//
-//                ItemClickSupport.addTo(staplesRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//                        String stapleItem = staplesData.get(position).getStaplesItem();
-//                        GroceryListItem groceryListItem =new GroceryListItem(1, stapleItem);
-//                        myGroceryList.addItem(groceryListItem);
-//                        groceryListAdapter.notifyItemChanged(position);
-//                    }
-//                });
                 startActivity(new Intent(this, StaplesActivity.class), compat.toBundle());
                 break;
             case R.id.scan_item:
@@ -296,10 +280,19 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.clear_groceries){
+            myGroceryList.clearGroceryList();
+            groceryListAdapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(),"Grocery List Cleared",
+                    Toast.LENGTH_SHORT).show();
+
+        }else {
+            StaplesList.clearStaplesList(this);
+            Toast.makeText(getApplicationContext(),"Staples List Cleared",
+                    Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginBottom="65dp"
-        android:id="@+id/linearLayout3">
+        android:id="@+id/linearLayout_show_list_toolbar">
 
         <LinearLayout
             android:id="@+id/toolbar_container"
@@ -28,9 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="95dp"
-            android:id="@+id/frameLayout">
+            android:id="@+id/frameLayout_show_list">
 
-            <TextView android:text="@string/grocery_list"
+            <TextView
+                android:text="@string/grocery_list"
                 android:id="@+id/grocery_list_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
