@@ -1,8 +1,10 @@
 package com.bkane56.grocerylist.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +14,16 @@ import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.bkane56.grocerylist.FragmentDrawer;
 import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.R;
 import com.bkane56.grocerylist.StaplesList;
+import com.bkane56.grocerylist.adapter.GroceryListAdapter;
 import com.bkane56.grocerylist.adapter.StaplesListAdapter;
+import com.bkane56.grocerylist.items.GroceryListItem;
 import com.bkane56.grocerylist.items.StaplesListItem;
 
 import java.util.List;
@@ -32,6 +37,9 @@ public class StaplesActivity extends AppCompatActivity
     private RecyclerView staplesRecyclerView;
     private List<StaplesListItem> mStapleData;
     private GroceryList mGroceryList;
+    private GroceryListAdapter mGroceryListAdapter;
+    private List<GroceryListItem> mGroceryData;
+    private CheckBox mCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,8 @@ public class StaplesActivity extends AppCompatActivity
         getWindow().setReenterTransition(transition);
 
         mGroceryList = new GroceryList(this);
+        mGroceryData = mGroceryList.getGroceryList();
+        mGroceryListAdapter = new GroceryListAdapter(this, mGroceryData);
 
         mStaplesList = new StaplesList();
         staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
@@ -53,6 +63,8 @@ public class StaplesActivity extends AppCompatActivity
         mStaplesAdapter = new StaplesListAdapter(this, mStapleData);
         staplesRecyclerView.setAdapter(mStaplesAdapter);
         staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -62,31 +74,29 @@ public class StaplesActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                GroceryListItem mGroceryItem;
+                String tempData = "";
+                mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
+
+                for(StaplesListItem staple : mStapleData){
+
+                    if(staple.isChecked()){
+                        mGroceryItem = new GroceryListItem(1, staple.getStaplesItem());
+                        mGroceryList.addItem(mGroceryItem);
+                        mGroceryListAdapter.notifyItemInserted(mGroceryList.getSize());
+                        tempData = tempData + "\n" + staple.getStaplesItem();
+
+                    }
+                }
+                Toast.makeText(StaplesActivity.this, "Added:\n" + tempData + "\n\n To Grocery List",
+                        Toast.LENGTH_LONG).show();
+                ActivityOptionsCompat compat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(StaplesActivity.this, null);
+                startActivity(new Intent(StaplesActivity.this, ShowListActivity.class), compat.toBundle());
             }
         });
     }
 
-
-    {
-    }
-//                findViewById(R.id.add_all).setOnClickListener(this);
-//
-//                staplesListAdapter = new StaplesListAdapter(this, staplesData);
-//                staplesRecyclerView.setAdapter(staplesListAdapter);
-//                staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//                findViewById(R.id.finised).setOnClickListener(this);
-//
-//                ItemClickSupport.addTo(staplesRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//                        String stapleItem = staplesData.get(position).getStaplesItem();
-//                        GroceryListItem groceryListItem =new GroceryListItem(1, stapleItem);
-//                        myGroceryList.addItem(groceryListItem);
-//                        groceryListAdapter.notifyItemChanged(position);
-//                    }
-//                });
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
@@ -119,6 +129,7 @@ public class StaplesActivity extends AppCompatActivity
             mGroceryList.clearGroceryList();
             Toast.makeText(getApplicationContext(), "Grocery List Cleared",
                     Toast.LENGTH_SHORT).show();
+            mGroceryListAdapter.notifyItemRangeRemoved(0, mGroceryListAdapter.getItemCount() -1);
 
         }else {
             StaplesList.clearStaplesList(this);

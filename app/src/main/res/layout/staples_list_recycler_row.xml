@@ -9,11 +9,17 @@
         android:orientation="horizontal"
         android:background="@color/primary_light">
 
+        <CheckBox
+            android:id="@+id/cb_isChecked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"/>
+
         <TextView
             android:id="@+id/staples_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="30dp"
+            android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textColor="@color/primary_text"

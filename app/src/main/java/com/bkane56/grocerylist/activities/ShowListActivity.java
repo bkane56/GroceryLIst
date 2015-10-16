@@ -40,7 +40,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     private GroceryListItem mItem;
     private static GroceryListAdapter groceryListAdapter = null;
     private View containerView;
-    private List<GroceryListItem> groceryData;
+    private static List<GroceryListItem> groceryData;
     private GroceryList myGroceryList;
     private Toolbar myToolbar;
     StaplesListAdapter staplesListAdapter;
@@ -77,24 +77,24 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.staples).setOnClickListener(this);
 //        findViewById(R.id.add_all).setOnClickListener(this);
 //        findViewById(R.id.finised).setOnClickListener(this);
+////
+//        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
+//                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 //
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
-                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-
-                    @Override
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                        //Remove swiped item from list and notify the RecyclerView
-                        groceryListAdapter.delete(viewHolder.getAdapterPosition());
-                        groceryListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                    }
-                };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+//                    @Override
+//                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+//                        //Remove swiped item from list and notify the RecyclerView
+//                        groceryListAdapter.delete(viewHolder.getAdapterPosition());
+//                        groceryListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+//                    }
+//                };
+//
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
 
         ItemClickSupport.addTo(groceryRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -218,7 +218,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private AlertDialog confirmDelete (String itemName, final GroceryListItem groceryListItem, final int position) {
-        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+        AlertDialog removeItemDialog =new AlertDialog.Builder(this)
                 //set message, title, and icon
                 .setTitle("Delete")
                 .setMessage("Do you want to Remove " + itemName)
@@ -258,8 +258,13 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
                     }
                 })
                 .create();
-        return myQuittingDialogBox;
+        return removeItemDialog;
 
+    }
+
+    public static void refreshData(List<GroceryListItem> newData){
+        groceryData = newData;
+        getGroceryListAdapter().notifyDataSetChanged();
     }
 
 
@@ -281,11 +286,13 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.clear_groceries){
-            myGroceryList.clearGroceryList();
-            groceryListAdapter.notifyDataSetChanged();
-            Toast.makeText(getApplicationContext(),"Grocery List Cleared",
+            int listLength = groceryData.size();
+            for(int i = listLength -1; i >= 0; i--) {
+                groceryData.remove(i);
+                groceryListAdapter.notifyItemRemoved(i);
+            }
+            Toast.makeText(getApplicationContext(), "Grocery List Cleared",
                     Toast.LENGTH_SHORT).show();
-
         }else {
             StaplesList.clearStaplesList(this);
             Toast.makeText(getApplicationContext(),"Staples List Cleared",

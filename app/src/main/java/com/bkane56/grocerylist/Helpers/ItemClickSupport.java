@@ -29,6 +29,7 @@ You also need to define "R.id.item_click_support" using ids.xml in all of you va
  */
 
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.View;
 
 import com.bkane56.grocerylist.R;
@@ -37,6 +38,7 @@ public class ItemClickSupport {
     private final RecyclerView mRecyclerView;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
+
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.bkane56.grocerylist.R;
@@ -39,22 +40,39 @@ public class StaplesListAdapter extends RecyclerView.Adapter<StaplesListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         StaplesListItem current = data.get(position);
         holder.item.setText(current.getStaplesItem());
-    }
+        holder.isSelected.setChecked(current.isChecked());
+        holder.isSelected.setTag(current);
+
+        holder.isSelected.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox) v;
+                StaplesListItem staple = (StaplesListItem) cb.getTag();
+
+                staple.setIsChecked(cb.isChecked());
+                data.get(position).setIsChecked(cb.isChecked());
+
+            }
+        });
+        }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
-
+    public List<StaplesListItem> getData(){
+        return data;
+    }
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item;
+        CheckBox isSelected;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             item = (TextView) itemView.findViewById(R.id.staples_item);
+            isSelected = (CheckBox) itemView.findViewById(R.id.cb_isChecked);
         }
     }
 }
