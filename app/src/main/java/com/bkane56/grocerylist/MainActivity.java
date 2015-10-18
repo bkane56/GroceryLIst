@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private GroceryList myGroceryList;
+    private StaplesList mStaplesList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.show).setOnClickListener(this);
 
         myGroceryList = new GroceryList(this);
+        mStaplesList = new StaplesList(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity
                     Toast.LENGTH_SHORT).show();
 
         }else {
-            StaplesList.clearStaplesList(this);
+            mStaplesList.clearStaplesList();
             Toast.makeText(getApplicationContext(),"Staples List Cleared",
                     Toast.LENGTH_SHORT).show();
         }

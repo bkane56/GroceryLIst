@@ -32,6 +32,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     private Context context;
     private GroceryList myGrocreyList;
     private GroceryListAdapter mGroceryListAdapter;
+    private StaplesList mStaplesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
         this.context = context;
         myGrocreyList = new GroceryList(this);
         mGroceryListAdapter = ShowListActivity.getGroceryListAdapter();
+        mStaplesList = new StaplesList(this);
 
         getWindow().setEnterTransition(TransitionInflater.from(this)
                 .inflateTransition(R.transition.transition_explode_fade));
@@ -68,7 +70,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
         StaplesListItem staplesListItem = new StaplesListItem(mItem);
 
         myGrocreyList.addItem(getProduct());
-        StaplesList.addItem(this, staplesListItem);
+        mStaplesList.addItem(staplesListItem);
         mEditText.setText("");;
 
     }

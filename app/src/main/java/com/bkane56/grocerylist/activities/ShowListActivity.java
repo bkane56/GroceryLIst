@@ -1,6 +1,5 @@
 package com.bkane56.grocerylist.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
@@ -43,6 +41,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     private static List<GroceryListItem> groceryData;
     private GroceryList myGroceryList;
     private Toolbar myToolbar;
+    private StaplesList mStaplesList;
     StaplesListAdapter staplesListAdapter;
 
 
@@ -60,6 +59,8 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         getWindow().setReenterTransition(transition);
 
         myGroceryList = new GroceryList(this);
+
+        mStaplesList = new StaplesList(this);
 
         groceryData = myGroceryList.getGroceryList();
 
@@ -173,7 +174,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     @Override
      public void onClick(View v) {
         ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
-        final List<StaplesListItem> staplesData = StaplesList.getStaplesList(this);
+        final List<StaplesListItem> staplesData = mStaplesList.getStaplesList();
 
         switch (v.getId()) {
             case R.id.staples:
@@ -200,12 +201,13 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     }
     private void addAllStaples() {
 
-        List<StaplesListItem> mStapleList = StaplesList.getStaplesList(this);
+        List<StaplesListItem> mStapleList = mStaplesList.getStaplesList();
 
         for(StaplesListItem stapleItem : mStapleList){
             GroceryListItem groceryListItem =new GroceryListItem(1, stapleItem.getStaplesItem());
             myGroceryList.addItem(groceryListItem);
             groceryListAdapter.notifyItemInserted(myGroceryList.getSize());
+
         }
     }
 
@@ -294,7 +296,7 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "Grocery List Cleared",
                     Toast.LENGTH_SHORT).show();
         }else {
-            StaplesList.clearStaplesList(this);
+            mStaplesList.clearStaplesList();
             Toast.makeText(getApplicationContext(),"Staples List Cleared",
                     Toast.LENGTH_SHORT).show();
         }

@@ -5,6 +5,10 @@ public class StaplesListItem {
 
     private boolean isChecked = false;
     private String staplesItem;
+    private String stapleType = "Basic";
+    private int isleOrder;
+
+
 
     public StaplesListItem() {
 
@@ -18,6 +22,11 @@ public class StaplesListItem {
         this.staplesItem = staplesItem;
         this.isChecked = isChecked;
     }
+
+    public String getStapleType() {
+        return stapleType;
+    }
+
 
     public String getStaplesItem() {
         return staplesItem;
@@ -33,5 +42,13 @@ public class StaplesListItem {
 
     public void setIsChecked(boolean isChecked) {
         this.isChecked = isChecked;
+    }
+
+    public int getIsleOrder() {
+        return isleOrder;
+    }
+
+    public void setIsleOrder(int isleOrder) {
+        this.isleOrder = isleOrder;
     }
 }

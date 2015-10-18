@@ -7,21 +7,26 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.view.View;
 
 import com.bkane56.grocerylist.items.StaplesListItem;
 import com.google.gson.Gson;
 
-public class StaplesList {
+public class StaplesList implements View.OnClickListener{
 
     public static final String PREFS_NAME = "Staples_List";
     public static final String STAPLE_ITEMS = "Staple_Items";
+    private static Context context;
+    private static StaplesList instance = null;
 
-    public StaplesList() {
+
+    public StaplesList(Context context){
         super();
+        this.context = context;
     }
 
-    // This four methods are used for maintaining itemList.
-    public static void saveStaplesList(Context context, List<StaplesListItem> itemList) {
+    // This methods are used for maintaining itemList.
+    public void saveStaplesList(List<StaplesListItem> itemList) {
         SharedPreferences settings;
         Editor editor;
 
@@ -33,35 +38,52 @@ public class StaplesList {
         String jsonFavorites = gson.toJson(itemList);
 
         editor.putString(STAPLE_ITEMS, jsonFavorites);
-
         editor.commit();
     }
 
-    public static ArrayList<StaplesListItem> clearStaplesList(Context context){
+    public ArrayList<StaplesListItem> clearStaplesList(){
 
         ArrayList<StaplesListItem> mList = new ArrayList<>();
-        saveStaplesList(context, mList);
+        saveStaplesList(mList);
         return mList;
     }
 
-    public static void addItem(Context context, StaplesListItem product) {
-
-        List<StaplesListItem> favorites = getStaplesList(context);
+    public void addItem(StaplesListItem product) {
+        List<StaplesListItem> favorites = getStaplesList();
         if (favorites == null)
             favorites = new ArrayList<StaplesListItem>();
         favorites.add(product);
-        saveStaplesList(context, favorites);
+        saveStaplesList(favorites);
     }
 
-    public static void removeItem(Context context, StaplesListItem product) {
-        ArrayList<StaplesListItem> favorites = getStaplesList(context);
+    public void removeItem(int position){
+        ArrayList<StaplesListItem> favorites = getStaplesList();
         if (favorites != null) {
-            favorites.remove(product);
-            saveStaplesList(context, favorites);
+            favorites.remove(position);
+            saveStaplesList(favorites);
         }
     }
 
-    public static ArrayList<StaplesListItem> getStaplesList(Context context) {
+    public void removeItem(StaplesListItem product) {
+        ArrayList<StaplesListItem> favorites = getStaplesList();
+        if (favorites != null) {
+            favorites.remove(product);
+            saveStaplesList(favorites);
+        }
+    }
+
+    public int getSize (){
+        ArrayList<StaplesListItem> favorites = getStaplesList();
+        return favorites.size();
+    }
+
+    public void updateItem(int position, StaplesListItem item){
+        ArrayList<StaplesListItem> favorites = getStaplesList();
+        favorites.set(position, item);
+        saveStaplesList(favorites);
+    }
+
+    public ArrayList<StaplesListItem> getStaplesList() {
         SharedPreferences settings;
         List<StaplesListItem> items;
 
@@ -81,4 +103,11 @@ public class StaplesList {
 
         return (ArrayList<StaplesListItem>) items;
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
 }
+

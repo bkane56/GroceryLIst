@@ -35,6 +35,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
     TextView contentTxt;
     private String url;
     private GroceryList mGroceryList;
+    private StaplesList mStaplesLest;
 
     public ScanItemActivity() {
     }
@@ -53,6 +54,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
         formatTxt = (TextView)findViewById(R.id.scan_format);
         contentTxt = (TextView)findViewById(R.id.scan_content);
         mGroceryList = new GroceryList(this);
+        mStaplesLest = new StaplesList(this);
 
         scanBtn.setOnClickListener(this);
         finBtn.setOnClickListener(this);
@@ -175,7 +177,7 @@ public class ScanItemActivity extends AppCompatActivity implements View.OnClickL
                     Toast.LENGTH_SHORT).show();
 
         }else {
-            StaplesList.clearStaplesList(this);
+            mStaplesLest.clearStaplesList();
             Toast.makeText(getApplicationContext(),"Staples List Cleared",
                     Toast.LENGTH_SHORT).show();
         }

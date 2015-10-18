@@ -57,9 +57,9 @@ public class StaplesActivity extends AppCompatActivity
         mGroceryData = mGroceryList.getGroceryList();
         mGroceryListAdapter = new GroceryListAdapter(this, mGroceryData);
 
-        mStaplesList = new StaplesList();
+        mStaplesList = new StaplesList(this);
         staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
-        mStapleData = StaplesList.getStaplesList(this);
+        mStapleData = mStaplesList.getStaplesList();
         mStaplesAdapter = new StaplesListAdapter(this, mStapleData);
         staplesRecyclerView.setAdapter(mStaplesAdapter);
         staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -132,7 +132,7 @@ public class StaplesActivity extends AppCompatActivity
             mGroceryListAdapter.notifyItemRangeRemoved(0, mGroceryListAdapter.getItemCount() -1);
 
         }else {
-            StaplesList.clearStaplesList(this);
+            mStaplesList.clearStaplesList();
             Toast.makeText(getApplicationContext(),"Staples List Cleared",
                     Toast.LENGTH_SHORT).show();
         }
