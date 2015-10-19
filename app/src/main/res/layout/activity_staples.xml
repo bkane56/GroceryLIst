@@ -68,10 +68,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Finised"
+            android:text="Finished"
             android:background="@drawable/button_ripple"
             android:layout_marginBottom="45dp"
-            android:id="@+id/finised"
+            android:id="@+id/staples_finished2"
             android:elevation="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/add_all"
@@ -80,13 +80,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add All"
+            android:text="Edit Staples"
             android:background="@drawable/button_ripple"
-            android:id="@+id/add_all"
+            android:id="@+id/add_to_staples"
             android:layout_gravity="center_horizontal"
-            android:layout_alignTop="@+id/finised"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="56dp" />
+            android:layout_alignTop="@+id/staples_finished2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="54dp" />
 
     </RelativeLayout>
     <fragment

@@ -3,19 +3,26 @@ package com.bkane56.grocerylist.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bkane56.grocerylist.GroceryList;
 import com.bkane56.grocerylist.R;
@@ -33,17 +40,23 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     private GroceryList myGrocreyList;
     private GroceryListAdapter mGroceryListAdapter;
     private StaplesList mStaplesList;
+    private ListView listView;
+    private String mStapleType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = context;
+
+        setTransition();
+
+        setupStaplesDialog();
+
         myGrocreyList = new GroceryList(this);
         mGroceryListAdapter = ShowListActivity.getGroceryListAdapter();
         mStaplesList = new StaplesList(this);
 
-        getWindow().setEnterTransition(TransitionInflater.from(this)
-                .inflateTransition(R.transition.transition_explode_fade));
 
         setContentView(R.layout.activity_add_items_to_list);
         mEditText = (EditText) findViewById(R.id.et_add_item);
@@ -65,6 +78,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
     public void addToBothLists(View v){
 
+        showStapleDialog(v);
         GroceryListItem groceryListItem = getProduct();
         String mItem = groceryListItem.getGroceryItem();
         StaplesListItem staplesListItem = new StaplesListItem(mItem);
@@ -92,6 +106,54 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
         in.setFillAfter(true);
 
     }
+
+    public void setTransition(){
+
+        TransitionInflater inflater = TransitionInflater.from(this);
+        Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+        transition.setDuration(750);
+        getWindow().setReenterTransition(transition);
+        getWindow().setEnterTransition(transition);
+        getWindow().setReenterTransition(transition);
+    }
+
+    public void setupStaplesDialog(){
+
+        listView = new ListView(this);
+        // Add data to the ListView
+        String[] items = this.getResources().getStringArray(R.array.staples_drawer_lables);;
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,
+                R.layout.list_item, R.id.txtitem, items);
+        listView.setAdapter(adapter);
+        // Perform action when an item is clicked
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int
+                    position, long id) {
+                ViewGroup vg = (ViewGroup) view;
+                TextView txt = (TextView) vg.findViewById(R.id.txtitem);
+                mStapleType = txt.getText().toString().replace(" items", "");
+
+                Toast.makeText(AddItemsToListActivity.this, "Added Item To " +
+                                txt.getText().toString() + " List",
+                    Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void showStapleDialog(View view){
+
+        AlertDialog.Builder builder=new
+                AlertDialog.Builder(AddItemsToListActivity.this);
+        builder.setTitle("Tap To Add Staples To That List");
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK", null);
+        builder.setView(listView);
+        AlertDialog dialog=builder.create();
+        dialog.show();
+    }
+
     @Override
       public void onClick(View v) {
 

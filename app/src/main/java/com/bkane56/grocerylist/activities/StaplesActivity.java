@@ -3,7 +3,6 @@ package com.bkane56.grocerylist.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,9 @@ import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bkane56.grocerylist.FragmentDrawer;
@@ -27,6 +28,7 @@ import com.bkane56.grocerylist.adapter.StaplesListAdapter;
 import com.bkane56.grocerylist.items.GroceryListItem;
 import com.bkane56.grocerylist.items.StaplesListItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StaplesActivity extends AppCompatActivity
@@ -42,46 +44,40 @@ public class StaplesActivity extends AppCompatActivity
     private List<GroceryListItem> mGroceryData;
     private CheckBox mCheckBox;
     private FragmentDrawer drawerFragment;
+    private TextView staplesHeader;
+    private String[] staplesTitle;
+    private Toolbar mToolbar;
+
+    List<StaplesListItem> basicData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staples);
 
-        TransitionInflater inflater = TransitionInflater.from(this);
-        Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
-        transition.setDuration(1000);
-        getWindow().setReenterTransition(transition);
-        getWindow().setEnterTransition(transition);
-        getWindow().setReenterTransition(transition);
+        setTransition();
 
-        String[] staplesTitle = this.getResources().getStringArray(R.array.staples_drawer_lables);
+        staplesTitle = this.getResources().getStringArray(R.array.staples_drawer_lables);
 
+        staplesHeader = (TextView) findViewById(R.id.grocery_list_header);
 
         mGroceryList = new GroceryList(this);
-        mGroceryData = mGroceryList.getGroceryList();
+        mStaplesList = new StaplesList(this);
+        setInitialData();
         mGroceryListAdapter = new GroceryListAdapter(this, mGroceryData);
 
-        mStaplesList = new StaplesList(this);
         staplesRecyclerView = (RecyclerView) findViewById(R.id.rv_staples_list);
-        mStapleData = mStaplesList.getStaplesList();
-        mStaplesAdapter = new StaplesListAdapter(this, mStapleData);
+        mStaplesAdapter = new StaplesListAdapter(this, basicData);
         staplesRecyclerView.setAdapter(mStaplesAdapter);
         staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Button finished = (Button) findViewById(R.id.staples_finished2);
+        finished.setOnClickListener(this);
+        findViewById(R.id.add_to_staples).setOnClickListener(this);
 
+        setupToolbar();
 
-
-//        mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
-
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_statples_nav_drawer);
-        drawerFragment.setUp(R.id.fragment_statples_nav_drawer,
-                (DrawerLayout) findViewById(R.id.staples_drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
+        setupDrawers();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +85,6 @@ public class StaplesActivity extends AppCompatActivity
             public void onClick(View view) {
                 GroceryListItem mGroceryItem;
                 String tempData = "";
-//                mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
 
                 for(StaplesListItem staple : mStapleData){
 
@@ -110,16 +105,97 @@ public class StaplesActivity extends AppCompatActivity
         });
     }
 
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        
-    }
-
     @Override
     public void onClick(View v) {
 
+
+        switch (v.getId()){
+            case R.id.add_to_staples:
+
+                break;
+            case R.id.staples_finished2:
+                ActivityOptionsCompat compat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
+                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
+                break;
+            default:
+                break;
+        }
+
     }
+
+    public void setupToolbar (){
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    public void setupDrawers(){
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_statples_nav_drawer);
+        drawerFragment.setUp(R.id.fragment_statples_nav_drawer,
+                (DrawerLayout) findViewById(R.id.staples_drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
+
+    }
+
+    public void setInitialData(){
+        mStapleData = mStaplesList.getStaplesList();
+        basicData = getBasicStapleData();
+        mGroceryData = mGroceryList.getGroceryList();
+    }
+
+    public void setTransition(){
+
+        TransitionInflater inflater = TransitionInflater.from(this);
+        Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+        transition.setDuration(750);
+        getWindow().setReenterTransition(transition);
+        getWindow().setEnterTransition(transition);
+        getWindow().setReenterTransition(transition);
+    }
+    private void setStaplesChoice(int position){
+
+        String title = staplesTitle[position];
+        String stapleType = title.replace(" Items", "");
+
+        staplesHeader.setText(title);
+
+        List<StaplesListItem> newData = new ArrayList<>();
+        StaplesListItem mItem = null;
+
+        for(int i = 0; i < mStapleData.size() - 1; i++){
+            mItem = mStapleData.get(i);
+
+            if(mItem != null && mItem.getStapleType().equals(stapleType)){
+                newData.add(mItem);
+            }
+        }
+    }
+
+    private List<StaplesListItem> getBasicStapleData(){
+        List<StaplesListItem> basicData = new ArrayList<>();
+        StaplesListItem mItem = null;
+
+        for(int i = 0; i < mStapleData.size(); i++){
+            mItem = mStapleData.get(i);
+
+            if(mItem != null && mItem.getStapleType().equals("Basic"))
+                basicData.add(mItem);
+        }
+
+        return basicData;
+    }
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        setStaplesChoice(position);
+
+
+    }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

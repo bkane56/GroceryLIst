@@ -56,10 +56,11 @@ public class FragmentDrawer extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         // drawer labels
-        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+        titles = getActivity().getResources().getStringArray(R.array.staples_drawer_lables);
     }
 
     @Override

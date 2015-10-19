@@ -15,6 +15,11 @@ import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bkane56.grocerylist.GroceryList;
@@ -42,7 +47,9 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     private GroceryList myGroceryList;
     private Toolbar myToolbar;
     private StaplesList mStaplesList;
-    StaplesListAdapter staplesListAdapter;
+    private StaplesListAdapter staplesListAdapter;
+    private ListView listView;
+
 
 
     @Override
@@ -51,17 +58,12 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
 
         setContentView(R.layout.activity_show_list);
 
-        TransitionInflater inflater = TransitionInflater.from(this);
-        Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
-        transition.setDuration(1000);
-        getWindow().setReenterTransition(transition);
-        getWindow().setEnterTransition(transition);
-        getWindow().setReenterTransition(transition);
+        setTransition();
+
+        setupStaplesDialog();
 
         myGroceryList = new GroceryList(this);
-
         mStaplesList = new StaplesList(this);
-
         groceryData = myGroceryList.getGroceryList();
 
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -171,6 +173,16 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         return groceryListAdapter;
     }
 
+    public void setTransition(){
+
+        TransitionInflater inflater = TransitionInflater.from(this);
+        Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+        transition.setDuration(750);
+        getWindow().setReenterTransition(transition);
+        getWindow().setEnterTransition(transition);
+        getWindow().setReenterTransition(transition);
+    }
+
     @Override
      public void onClick(View v) {
         ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
@@ -178,10 +190,6 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
 
         switch (v.getId()) {
             case R.id.staples:
-
-////                ViewGroupUtils.replaceView(findViewById(R.id.show_list_layout), findViewById(R.id.staples_list));
-//                setContentView(R.layout.staples_layout);
-//
                 startActivity(new Intent(this, StaplesActivity.class), compat.toBundle());
                 break;
             case R.id.scan_item:
@@ -267,6 +275,38 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
     public static void refreshData(List<GroceryListItem> newData){
         groceryData = newData;
         getGroceryListAdapter().notifyDataSetChanged();
+    }
+
+    public void setupStaplesDialog(){
+
+        listView = new ListView(this);
+        // Add data to the ListView
+        String[] items={"Facebook","Google+","Twitter","Digg"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,
+                R.layout.list_item, R.id.txtitem, items);
+        listView.setAdapter(adapter);
+        // Perform action when an item is clicked
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int
+                    position, long id) {
+                ViewGroup vg = (ViewGroup) view;
+                TextView txt = (TextView) vg.findViewById(R.id.txtitem);
+                Toast.makeText(ShowListActivity.this, txt.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void showStapleDialog(View view){
+
+        AlertDialog.Builder builder=new
+                AlertDialog.Builder(ShowListActivity.this);
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK",null);
+        builder.setView(listView);
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
 
