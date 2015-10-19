@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:id="@+id/staples_drawer_layout"
     tools:context="com.bkane56.grocerylist.activities.StaplesActivity">
 
     <LinearLayout
@@ -89,5 +89,13 @@
             android:layout_marginStart="56dp" />
 
     </RelativeLayout>
+    <fragment
+        android:id="@+id/fragment_statples_nav_drawer"
+        android:layout_width="@dimen/nav_drawer_width"
+        android:layout_height="match_parent"
+        android:name="com.bkane56.grocerylist.FragmentDrawer"
+        android:layout_gravity="start"
+        app:layout="@layout/fragment_navigation_drawer"
+        tools:layout="@layout/fragment_navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

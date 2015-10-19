@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class StaplesActivity extends AppCompatActivity
     private GroceryListAdapter mGroceryListAdapter;
     private List<GroceryListItem> mGroceryData;
     private CheckBox mCheckBox;
+    private FragmentDrawer drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,9 @@ public class StaplesActivity extends AppCompatActivity
         getWindow().setEnterTransition(transition);
         getWindow().setReenterTransition(transition);
 
+        String[] staplesTitle = this.getResources().getStringArray(R.array.staples_drawer_lables);
+
+
         mGroceryList = new GroceryList(this);
         mGroceryData = mGroceryList.getGroceryList();
         mGroceryListAdapter = new GroceryListAdapter(this, mGroceryData);
@@ -64,11 +69,19 @@ public class StaplesActivity extends AppCompatActivity
         staplesRecyclerView.setAdapter(mStaplesAdapter);
         staplesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
+
+
+//        mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_statples_nav_drawer);
+        drawerFragment.setUp(R.id.fragment_statples_nav_drawer,
+                (DrawerLayout) findViewById(R.id.staples_drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +89,7 @@ public class StaplesActivity extends AppCompatActivity
             public void onClick(View view) {
                 GroceryListItem mGroceryItem;
                 String tempData = "";
-                mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
+//                mCheckBox = (CheckBox) findViewById(R.id.cb_isChecked);
 
                 for(StaplesListItem staple : mStapleData){
 
@@ -111,7 +124,7 @@ public class StaplesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_staples, menu);
         return true;
     }
 

@@ -4,14 +4,34 @@
     <string name="action_search">Search</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+
+    <!-- drawer list titles to be used with arrays below-->
     <string name="nav_item_show_list">Show List</string>
     <string name="nav_item_scan_new">Scan New Item</string>
     <string name="nav_item_add_to_list">Add Item To List</string>
+    <string name="staple_item_bakery">Bakery Items</string>
+    <string name="staple_item_canned">Canned Items</string>
+    <string name="staple_item_cleaning">Cleaning Items</string>
+    <string name="staple_item_Dairy">Dairy Items</string>
+    <string name="staple_item_Meat">Meat Items</string>
+    <string name="staple_item_personal">Personal Items</string>
+    <string name="staple_item_produce">Produce Items</string>
+
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_show_list</item>
         <item>@string/nav_item_scan_new</item>
         <item>@string/nav_item_add_to_list</item>
+    </string-array>
+    <!-- staples drawer item labels-->
+    <string-array name="staples_drawer_lables">
+        <item>@string/staple_item_bakery</item>
+        <item>@string/staple_item_canned</item>
+        <item>@string/staple_item_cleaning</item>
+        <item>@string/staple_item_Dairy</item>
+        <item>@string/staple_item_Meat</item>
+        <item>@string/staple_item_personal</item>
+        <item>@string/staple_item_produce</item>
     </string-array>
 
     <string name="title_show_list">Show List</string>
@@ -20,8 +40,11 @@
     <string name="title_activity_add_items_to_list">Add Items To List</string>
 
     <string name="title_activity_scan_item">Scan Item</string>
-    <string name="title_activity_show_list">Show List</string>
+    <string name="title_activity_show_list">My Grocery List</string>
     <string name="grocery_list">My Grocery List</string>
     <string name="title_activity_staples">Staples</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
