@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,13 @@ import com.bkane56.grocerylist.StaplesList;
 import com.bkane56.grocerylist.adapter.GroceryListAdapter;
 import com.bkane56.grocerylist.items.GroceryListItem;
 import com.bkane56.grocerylist.items.StaplesListItem;
+import com.bkane56.grocerylist.items.staples.BakeryItem;
+import com.bkane56.grocerylist.items.staples.CannedItem;
+import com.bkane56.grocerylist.items.staples.CleaningItem;
+import com.bkane56.grocerylist.items.staples.DairyItem;
+import com.bkane56.grocerylist.items.staples.MeatItem;
+import com.bkane56.grocerylist.items.staples.PersonalCareItem;
+import com.bkane56.grocerylist.items.staples.ProduceItem;
 
 
 public class AddItemsToListActivity extends AppCompatActivity implements View.OnClickListener{
@@ -70,28 +78,95 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     }
 
     public void addToList(View v) {
+        if (!mEditText.getText().toString().equals("")) {
+            myGrocreyList.addItem(getProduct());
+            mEditText.setText("");
+        } else{
+            Toast.makeText(this, "You Did Not Enter an Item!",Toast.LENGTH_SHORT).show();
+        }
 
-        myGrocreyList.addItem(getProduct());
-        mEditText.setText("");
     }
-
 
     public void addToBothLists(View v){
 
-        showStapleDialog(v);
-        GroceryListItem groceryListItem = getProduct();
-        String mItem = groceryListItem.getGroceryItem();
-        StaplesListItem staplesListItem = new StaplesListItem(mItem);
+        StaplesListItem staplesListItem = null;
+        if(!mEditText.getText().toString().equals("")) {
+            showStapleDialog(v);
+            GroceryListItem groceryListItem = getProduct();
+            String mItem = groceryListItem.getGroceryItem();
+            if(mStapleType == null) {
+                staplesListItem = new StaplesListItem(mItem);
+            }else {
+//                staplesListItem = getCorrectItem(mStapleType);
+                switch(mStapleType){
+                    case "Bakery":
+                        staplesListItem = new BakeryItem(mItem);
+                        break;
+                    case "Canned":
+                        staplesListItem = new CannedItem(mItem);
+                        break;
+                    case "Cleaning":
+                        staplesListItem = new CleaningItem(mItem);
+                        break;
+                    case "Dairy":
+                        staplesListItem = new DairyItem(mItem);
+                        break;
+                    case "Meat":
+                        staplesListItem = new MeatItem(mItem);
+                        break;
+                    case "Personal":
+                        staplesListItem = new PersonalCareItem(mItem);
+                        break;
+                    case "Produce":
+                        staplesListItem = new ProduceItem(mItem);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            myGrocreyList.addItem(getProduct());
+            mStaplesList.addItem(staplesListItem);
+            mEditText.setText("");
+//            mStapleType = "";
 
-        myGrocreyList.addItem(getProduct());
-        mStaplesList.addItem(staplesListItem);
-        mEditText.setText("");;
-
+        } else {
+            Toast.makeText(this, "You Did Not Enter an Item!", Toast.LENGTH_SHORT).show();
+        }
     }
     private GroceryListItem getProduct (){
         return new GroceryListItem(qty, mEditText.getText().toString());
-
     }
+
+    private StaplesListItem getCorrectItem(String stapleType){
+        StaplesListItem switchItem = null;
+        switch(stapleType){
+            case "Bakery":
+                switchItem = new BakeryItem();
+                break;
+            case "Canned":
+                switchItem = new CannedItem();
+                break;
+            case "Cleaning":
+                switchItem = new CleaningItem();
+                break;
+            case "Dairy":
+                switchItem = new DairyItem();
+                break;
+            case "Meat":
+                switchItem = new MeatItem();
+                break;
+            case "Personal":
+                switchItem = new PersonalCareItem();
+                break;
+            case "Produce":
+                switchItem = new ProduceItem();
+                break;
+            default:
+                break;
+        }
+        return switchItem;
+    }
+
 
     private void animateText(){
 
@@ -136,8 +211,9 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
                 mStapleType = txt.getText().toString().replace(" items", "");
 
                 Toast.makeText(AddItemsToListActivity.this, "Added Item To " +
-                                txt.getText().toString() + " List",
+                                mStapleType + " List",
                     Toast.LENGTH_SHORT).show();
+
             }
         });
     }
