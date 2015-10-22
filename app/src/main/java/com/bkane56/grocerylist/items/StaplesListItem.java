@@ -8,8 +8,6 @@ public class StaplesListItem {
     private String stapleType = "Basic";
     private int isleOrder;
 
-
-
     public StaplesListItem() {
 
     }
@@ -27,6 +25,9 @@ public class StaplesListItem {
         return stapleType;
     }
 
+    public void setStapleType(String stapleType) {
+        this.stapleType = stapleType;
+    }
 
     public String getStaplesItem() {
         return staplesItem;

@@ -14,7 +14,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/primary_text"
-        android:textSize="15sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:background="@color/primary_light"/>
     <TextView

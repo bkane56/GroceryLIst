@@ -9,13 +9,18 @@
     <string name="nav_item_show_list">Show List</string>
     <string name="nav_item_scan_new">Scan New Item</string>
     <string name="nav_item_add_to_list">Add Item To List</string>
+    <!-- for the strings below use format "Name Items -->
+    <string name="staple_item_all">All Items</string>
     <string name="staple_item_bakery">Bakery Items</string>
     <string name="staple_item_canned">Canned Items</string>
     <string name="staple_item_cleaning">Cleaning Items</string>
-    <string name="staple_item_Dairy">Dairy Items</string>
-    <string name="staple_item_Meat">Meat Items</string>
+    <string name="staple_item_dairy">Dairy Items</string>
+    <string name="staple_item_frozen">Frozen Items</string>
+    <string name="staple_item_meat">Meat Items</string>
     <string name="staple_item_personal">Personal Items</string>
     <string name="staple_item_produce">Produce Items</string>
+    <string name="staple_item_snack">Snack Items</string>
+    <string name="staple_item_deli">Deli Items</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
@@ -25,13 +30,17 @@
     </string-array>
     <!-- staples drawer item labels-->
     <string-array name="staples_drawer_lables">
+        <item>@string/staple_item_all</item>
         <item>@string/staple_item_bakery</item>
         <item>@string/staple_item_canned</item>
         <item>@string/staple_item_cleaning</item>
-        <item>@string/staple_item_Dairy</item>
-        <item>@string/staple_item_Meat</item>
+        <item>@string/staple_item_dairy</item>
+        <item>@string/staple_item_deli</item>
+        <item>@string/staple_item_frozen</item>
+        <item>@string/staple_item_meat</item>
         <item>@string/staple_item_personal</item>
         <item>@string/staple_item_produce</item>
+        <item>@string/staple_item_snack</item>
     </string-array>
 
     <string name="title_show_list">Show List</string>

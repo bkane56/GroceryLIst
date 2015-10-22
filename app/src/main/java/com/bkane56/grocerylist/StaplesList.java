@@ -7,15 +7,19 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bkane56.grocerylist.items.StaplesListItem;
 import com.google.gson.Gson;
+import com.google.zxing.common.StringUtils;
+
+import org.jsoup.helper.StringUtil;
 
 public class StaplesList implements View.OnClickListener{
 
     public static final String PREFS_NAME = "Staples_List";
-    public static final String STAPLE_ITEMS = "Staple_Items";
+    public static String STAPLE_ITEMS = "Staple_Items";
     private static Context context;
     private static StaplesList instance = null;
 
@@ -23,6 +27,11 @@ public class StaplesList implements View.OnClickListener{
     public StaplesList(Context context){
         super();
         this.context = context;
+    }
+//    sets the header for the Json file to type of staple
+    public void setStapleItems(String stapleType) {
+        String[] mString = stapleType.split(" ");
+        STAPLE_ITEMS = TextUtils.join("_", mString);
     }
 
     // This methods are used for maintaining itemList.

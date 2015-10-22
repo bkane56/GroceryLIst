@@ -1,12 +1,14 @@
 package com.bkane56.grocerylist.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.KeyEvent;
@@ -38,6 +40,9 @@ import com.bkane56.grocerylist.items.staples.DairyItem;
 import com.bkane56.grocerylist.items.staples.MeatItem;
 import com.bkane56.grocerylist.items.staples.PersonalCareItem;
 import com.bkane56.grocerylist.items.staples.ProduceItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddItemsToListActivity extends AppCompatActivity implements View.OnClickListener{
@@ -80,6 +85,7 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     public void addToList(View v) {
         if (!mEditText.getText().toString().equals("")) {
             myGrocreyList.addItem(getProduct());
+            mGroceryListAdapter.notifyItemInserted(mGroceryListAdapter.getItemCount());
             mEditText.setText("");
         } else{
             Toast.makeText(this, "You Did Not Enter an Item!",Toast.LENGTH_SHORT).show();
@@ -89,45 +95,8 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
     public void addToBothLists(View v){
 
-        StaplesListItem staplesListItem = null;
         if(!mEditText.getText().toString().equals("")) {
             showStapleDialog(v);
-            GroceryListItem groceryListItem = getProduct();
-            String mItem = groceryListItem.getGroceryItem();
-            if(mStapleType == null) {
-                staplesListItem = new StaplesListItem(mItem);
-            }else {
-//                staplesListItem = getCorrectItem(mStapleType);
-                switch(mStapleType){
-                    case "Bakery":
-                        staplesListItem = new BakeryItem(mItem);
-                        break;
-                    case "Canned":
-                        staplesListItem = new CannedItem(mItem);
-                        break;
-                    case "Cleaning":
-                        staplesListItem = new CleaningItem(mItem);
-                        break;
-                    case "Dairy":
-                        staplesListItem = new DairyItem(mItem);
-                        break;
-                    case "Meat":
-                        staplesListItem = new MeatItem(mItem);
-                        break;
-                    case "Personal":
-                        staplesListItem = new PersonalCareItem(mItem);
-                        break;
-                    case "Produce":
-                        staplesListItem = new ProduceItem(mItem);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            myGrocreyList.addItem(getProduct());
-            mStaplesList.addItem(staplesListItem);
-            mEditText.setText("");
-//            mStapleType = "";
 
         } else {
             Toast.makeText(this, "You Did Not Enter an Item!", Toast.LENGTH_SHORT).show();
@@ -186,8 +155,9 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
 
         TransitionInflater inflater = TransitionInflater.from(this);
         Transition transition = inflater.inflateTransition(R.transition.transition_explode_fade);
+        Transition slideLeft = inflater.inflateTransition(R.transition.slide_left);
         transition.setDuration(750);
-        getWindow().setReenterTransition(transition);
+        getWindow().setExitTransition(slideLeft);
         getWindow().setEnterTransition(transition);
         getWindow().setReenterTransition(transition);
     }
@@ -208,14 +178,42 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
                     position, long id) {
                 ViewGroup vg = (ViewGroup) view;
                 TextView txt = (TextView) vg.findViewById(R.id.txtitem);
-                mStapleType = txt.getText().toString().replace(" items", "");
+                List<StaplesListItem>  mStapleData = mStaplesList.getStaplesList();
+                String newStapleType = txt.getText().toString();
+                String[] mString = newStapleType.split(" ");
+                String mType = mString[0];
 
-                Toast.makeText(AddItemsToListActivity.this, "Added Item To " +
-                                mStapleType + " List",
-                    Toast.LENGTH_SHORT).show();
+                GroceryListItem groceryListItem = getProduct();
+                String mItem = groceryListItem.getGroceryItem();
+                StaplesListItem staplesListItem = new StaplesListItem(mItem);
+
+                staplesListItem.setStapleType(mType);
+                myGrocreyList.addItem(getProduct());
+                List<String> stapleNameList = new ArrayList<String>();
+                for(StaplesListItem item : mStapleData) {
+                    stapleNameList.add(item.getStaplesItem());
+                }
+
+                if(stapleNameList.contains(mItem)) {
+                    Toast.makeText(AddItemsToListActivity.this, mItem + " Is Already In  " +
+                                    mType + " List",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddItemsToListActivity.this, "Added " + mItem + " To " +
+                                    mType + " List",
+                            Toast.LENGTH_SHORT).show();
+                    mStaplesList.addItem(staplesListItem);
+                }
+                mEditText.setText("");
+                vg.removeView(view);
 
             }
         });
+    }
+    private void addNewItemsToBoth(GroceryListItem gItem, StaplesListItem sItem){
+        myGrocreyList.addItem(getProduct());
+        mStaplesList.addItem(sItem);
+        mEditText.setText("");
     }
 
     public void showStapleDialog(View view){
@@ -224,7 +222,29 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
                 AlertDialog.Builder(AddItemsToListActivity.this);
         builder.setTitle("Tap To Add Staples To That List");
         builder.setCancelable(true);
-        builder.setPositiveButton("OK", null);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Basic Items", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                GroceryListItem groceryListItem = getProduct();
+                if(groceryListItem != null) {
+                    String mItem = groceryListItem.getGroceryItem();
+                    StaplesListItem staplesListItem = new StaplesListItem(mItem);
+                    myGrocreyList.addItem(groceryListItem);
+                    List<StaplesListItem>  mStapleData = mStaplesList.getStaplesList();
+                    if(!mStapleData.contains(staplesListItem)) {
+                        mStaplesList.addItem(staplesListItem);
+                        dialog.dismiss();
+                    }
+                }
+            }
+        });
         builder.setView(listView);
         AlertDialog dialog=builder.create();
         dialog.show();

@@ -33,6 +33,12 @@ public class StaplesListAdapter extends RecyclerView.Adapter<StaplesListAdapter.
         notifyItemRemoved(position);
     }
 
+    public void swap(List<StaplesListItem> datas){
+        data.clear();
+        data.addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.staples_list_recycler_row, parent, false);

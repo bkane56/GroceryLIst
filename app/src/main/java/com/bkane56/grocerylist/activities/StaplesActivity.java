@@ -163,14 +163,17 @@ public class StaplesActivity extends AppCompatActivity
 
         List<StaplesListItem> newData = new ArrayList<>();
         StaplesListItem mItem = null;
-
-        for(int i = 0; i < mStapleData.size() - 1; i++){
-            mItem = mStapleData.get(i);
-
-            if(mItem != null && mItem.getStapleType().equals(stapleType)){
-                newData.add(mItem);
+        if(position == 0){
+            newData = mStapleData;
+        }else {
+            for (int i = 0; i < mStapleData.size(); i++) {
+                mItem = mStapleData.get(i);
+                if (mItem != null && mItem.getStapleType().equals(stapleType)) {
+                    newData.add(mItem);
+                }
             }
         }
+        mStaplesAdapter.swap(newData);
     }
 
     private List<StaplesListItem> getBasicStapleData(){
@@ -186,16 +189,11 @@ public class StaplesActivity extends AppCompatActivity
 
         return basicData;
     }
+
     @Override
     public void onDrawerItemSelected(View view, int position) {
         setStaplesChoice(position);
-
-
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

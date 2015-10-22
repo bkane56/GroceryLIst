@@ -78,26 +78,6 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.add_new).setOnClickListener(this);
         findViewById(R.id.scan_item).setOnClickListener(this);
         findViewById(R.id.staples).setOnClickListener(this);
-//        findViewById(R.id.add_all).setOnClickListener(this);
-//        findViewById(R.id.finised).setOnClickListener(this);
-////
-//        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
-//                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//
-//                    @Override
-//                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-//                        //Remove swiped item from list and notify the RecyclerView
-//                        groceryListAdapter.delete(viewHolder.getAdapterPosition());
-//                        groceryListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-//                    }
-//                };
-//
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
 
         ItemClickSupport.addTo(groceryRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
