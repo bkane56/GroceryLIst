@@ -34,6 +34,13 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
         notifyItemRemoved(position);
     }
 
+    public void swap(List<GroceryListItem> datas){
+        data.clear();
+        data.addAll(datas);
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.grocery_list_recycler_row, parent, false);

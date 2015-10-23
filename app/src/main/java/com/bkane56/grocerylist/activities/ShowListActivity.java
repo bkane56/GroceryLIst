@@ -308,11 +308,8 @@ public class ShowListActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.clear_groceries){
-            int listLength = groceryData.size();
-            for(int i = listLength -1; i >= 0; i--) {
-                groceryData.remove(i);
-                groceryListAdapter.notifyItemRemoved(i);
-            }
+            myGroceryList.clearGroceryList();
+            groceryListAdapter.swap(myGroceryList.getGroceryList());
             Toast.makeText(getApplicationContext(), "Grocery List Cleared",
                     Toast.LENGTH_SHORT).show();
         }else {

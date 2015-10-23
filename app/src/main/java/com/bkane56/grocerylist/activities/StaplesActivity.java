@@ -57,6 +57,7 @@ public class StaplesActivity extends AppCompatActivity
         setContentView(R.layout.activity_staples);
 
         setTransition();
+        setupFAB();
 
         staplesTitle = this.getResources().getStringArray(R.array.staples_drawer_lables);
 
@@ -78,6 +79,30 @@ public class StaplesActivity extends AppCompatActivity
         setupToolbar();
 
         setupDrawers();
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+
+        switch (v.getId()){
+            case R.id.add_to_staples:
+
+                break;
+            case R.id.staples_finished2:
+                ActivityOptionsCompat compat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
+                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void setupFAB(){
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -103,25 +128,6 @@ public class StaplesActivity extends AppCompatActivity
                 startActivity(new Intent(StaplesActivity.this, ShowListActivity.class), compat.toBundle());
             }
         });
-    }
-
-    @Override
-    public void onClick(View v) {
-
-
-        switch (v.getId()){
-            case R.id.add_to_staples:
-
-                break;
-            case R.id.staples_finished2:
-                ActivityOptionsCompat compat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(this, null);
-                startActivity(new Intent(this, ShowListActivity.class), compat.toBundle());
-                break;
-            default:
-                break;
-        }
-
     }
 
     public void setupToolbar (){
@@ -158,6 +164,7 @@ public class StaplesActivity extends AppCompatActivity
 
         String title = staplesTitle[position];
         String stapleType = title.replace(" Items", "");
+        TextView tvType = (TextView) findViewById(R.id.staples_type);
 
         staplesHeader.setText(title);
 
@@ -165,6 +172,7 @@ public class StaplesActivity extends AppCompatActivity
         StaplesListItem mItem = null;
         if(position == 0){
             newData = mStapleData;
+
         }else {
             for (int i = 0; i < mStapleData.size(); i++) {
                 mItem = mStapleData.get(i);
