@@ -64,6 +64,26 @@ public class GroceryList implements View.OnClickListener{
             saveGroceryList(favorites);
         }
     }
+    public boolean contains (String name){
+        boolean isInList = false;
+        ArrayList<GroceryListItem> favorites = getGroceryList();
+        for (GroceryListItem gItem : favorites) {
+            if (gItem.getGroceryItem().equals(name)) {
+                isInList = true;
+            }
+        }
+        return isInList;
+    }
+
+    public GroceryListItem findItem(String name){
+        ArrayList<GroceryListItem> favorites = getGroceryList();
+        for (GroceryListItem gItem : favorites) {
+            if (gItem.getGroceryItem().equals(name)) {
+                return gItem;
+            }
+        }
+        return new GroceryListItem();
+    }
 
     public void removeItem(GroceryListItem product) {
         ArrayList<GroceryListItem> favorites = getGroceryList();

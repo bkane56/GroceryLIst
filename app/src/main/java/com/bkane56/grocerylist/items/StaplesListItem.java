@@ -21,6 +21,10 @@ public class StaplesListItem {
         this.isChecked = isChecked;
     }
 
+    public StaplesListItem(String staplesItem, String  stapleType) {
+        this.staplesItem = staplesItem;
+        this.stapleType = stapleType;
+    }
     public String getStapleType() {
         return stapleType;
     }

@@ -92,6 +92,28 @@ public class StaplesList implements View.OnClickListener{
         saveStaplesList(favorites);
     }
 
+    public boolean contains (String name){
+        boolean isInList = false;
+        ArrayList<StaplesListItem> favorites = getStaplesList();
+        for (StaplesListItem gItem : favorites){
+            if (gItem.getStaplesItem().equals(name)){
+                isInList = true;
+            }
+        }
+        return isInList;
+    }
+
+    public String getTypeFromList(String name){
+        String type = null;
+        ArrayList<StaplesListItem> favorites = getStaplesList();
+        for (StaplesListItem gItem : favorites){
+            if (gItem.getStaplesItem().equals(name)){
+                type = gItem.getStapleType();
+            }
+        }
+        return type;
+    }
+
     public ArrayList<StaplesListItem> getStaplesList() {
         SharedPreferences settings;
         List<StaplesListItem> items;

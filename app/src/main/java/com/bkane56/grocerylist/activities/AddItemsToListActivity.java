@@ -82,23 +82,28 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
     }
 
     public void addToList(View v) {
-        if (!mEditText.getText().toString().equals("")) {
+        String thisItem = mEditText.getText().toString();
+        if (thisItem.equals("")) {
+            Toast.makeText(this, "You Did Not Enter an Item!",Toast.LENGTH_SHORT).show();
+
+        } else if(myGrocreyList.contains(thisItem)){
+            confirmAddDuplicate(thisItem);
+
+        }else {
             myGrocreyList.addItem(getProduct());
             mGroceryListAdapter.swap(myGrocreyList.getGroceryList());
             mEditText.setText("");
-        } else{
-            Toast.makeText(this, "You Did Not Enter an Item!",Toast.LENGTH_SHORT).show();
         }
 
     }
 
     public void addToBothLists(View v){
 
-        if(!mEditText.getText().toString().equals("")) {
-            showStapleDialog(v);
+        if(mEditText.getText().toString().equals("")) {
+            Toast.makeText(this, "You Did Not Enter an Item!", Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(this, "You Did Not Enter an Item!", Toast.LENGTH_SHORT).show();
+            showStapleDialog(v);
         }
     }
     private GroceryListItem getProduct (){
@@ -188,31 +193,28 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
                 String newStapleType = txt.getText().toString();
                 String[] mString = newStapleType.split(" ");
                 String mType = mString[0];
+                String mItem = mEditText.getText().toString();
 
-                GroceryListItem groceryListItem = getProduct();
-                String mItem = groceryListItem.getGroceryItem();
-                StaplesListItem staplesListItem = new StaplesListItem(mItem);
-
-                staplesListItem.setStapleType(mType);
-                myGrocreyList.addItem(getProduct());
+                addToList(view);
                 List<String> stapleNameList = new ArrayList<String>();
-                for (StaplesListItem item : mStapleData) {
-                    stapleNameList.add(item.getStaplesItem());
-                }
 
-                if (stapleNameList.contains(mItem)) {
+                if (mStaplesList.contains(mItem)) {
+                    String thisType = mStaplesList.getTypeFromList(mItem);
                     Toast.makeText(AddItemsToListActivity.this, mItem + " Is Already In  " +
-                                    mType + " List",
+                                    thisType + " List",
                             Toast.LENGTH_SHORT).show();
-                } else {
+                }else {
                     Toast.makeText(AddItemsToListActivity.this, "Added " + mItem + " To " +
                                     mType + " List",
                             Toast.LENGTH_SHORT).show();
+
+                    StaplesListItem staplesListItem = new StaplesListItem(mItem);
+                    staplesListItem.setStapleType(mType);
                     mStaplesList.addItem(staplesListItem);
+                    mEditText.setText("");
                 }
-                mEditText.setText("");
+
 //                reset the view to a new view ie. release child
-                listView.removeView(view);
                 listView = new ListView(AddItemsToListActivity.this);
 //                update data with new (notify was not working)
                 mGroceryListAdapter.swap(myGrocreyList.getGroceryList());
@@ -255,6 +257,38 @@ public class AddItemsToListActivity extends AppCompatActivity implements View.On
         AlertDialog dialog = builder.create();
         dialog.show();
         mGroceryListAdapter.swap(myGrocreyList.getGroceryList());
+    }
+
+    private AlertDialog confirmAddDuplicate (final String itemName) {
+        AlertDialog confirmAddDialog =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Remove " + itemName)
+                .setIcon(R.drawable.delete)
+
+                .setPositiveButton("Add 1 to Existing", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+
+                        GroceryListItem groceryItem = myGrocreyList.findItem(itemName);
+                        int qty = Integer.parseInt(groceryItem.getQuantity());
+                        groceryItem.setQuantity(++qty);
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return confirmAddDialog;
+
     }
 
     @Override
